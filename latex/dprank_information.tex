@@ -63,14 +63,14 @@ The purpose of this note is to practice AI-assisted proof writing.
 
 Let $T$ be a (complete) theory in a language $\mathcal{L}$.
 We take elements from its monster model.
-The \emph{dp-rank} of $T$ is greater than or equal to a cardinal $\kappa$ if there are formulas $(\varphi_{\alpha}(x,\overline{y}_{\alpha}))_{\alpha < \kappa}$, parameters $(\overline{b}_{\alpha, k})_{\alpha < \kappa, k < \omega}$, and elements $(a_{\eta})_{\eta}$ where $\eta
+The \emph{dp-rank} of $T$ is at least a cardinal $\kappa$ if there are formulas $(\varphi_{\alpha}(x,\overline{y}_{\alpha}))_{\alpha < \kappa}$, parameters $(\overline{b}_{\alpha, k})_{\alpha < \kappa, k < \omega}$, and elements $(a_{\eta})_{\eta}$ where $\eta
 $ ranges over the functions $\kappa \to \omega$, such that
 \begin{equation*}
 	\models \varphi_{\alpha}(a_{\eta}, \overline{b}_{\alpha, k}) \iff \eta(\alpha) = k
 \end{equation*}
-for all $\alpha < \kappa$, $k < \omega$, and $\eta: \kappa \to \omega$.
+for all $\alpha < \kappa$, $k < \omega$, and $\eta: \kappa \to \omega$ (such a configuration is called an ICT-pattern of depth $\kappa$).
 Note that it is possible for a theory to have dp-rank greater than all positive integers and less than $\aleph_0$.
-NIP is known to be equivalent to having dp-rank less than or equal to $|\mathcal{L}| + \aleph_0$, as we mentioned earlier.
+NIP is known to be equivalent to having dp-rank at most $|\mathcal{L}| + \aleph_0$, as we mentioned earlier.
 
 There is a useful criterion for evaluating dp-rank.
 Let $n$ be a positive integer.
@@ -97,13 +97,33 @@ These are essential for the relative quantifier elimination given by Cluckers an
 
 \paragraph{Expected result}
 
-Since every OAG has NIP (\cite{Gurevich1984TheOrd}), it has dp-rank at most $aleph_0$.
+Since every OAG has NIP (\cite{Gurevich1984TheOrd}), it has dp-rank at most $\aleph_0$.
 We will show the followings:
 Fix an OAG $G$.
 First, if $G$ has an infinite spine (that is, $\mathcal{S}_p$ is infinite for some prime $p$), then it has dp-rank $\aleph_0$.
 Suppose that $G$ has finite spines.
-For each prime $p$, let $\mathcal{S}_p^{\infty} = \left\{ H \in \mathcal{S}_p \setminus \left\{ \emptyset \right\} \mid |H| = \infty \right\}$.
+For each prime $p$, let $\mathcal{S}_p^{\infty} = \left\{ H \in \mathcal{S}_p \setminus \left\{ \emptyset \right\} \mid \left| R_H^{\mathfrak{s}_p} \right| = \infty \right\}$.
 Then the dp-rank of $G$ equals $1 + \sum_{p: \text{prime}} \left| \mathcal{S}_p^{\infty} \right|$ (if the right-hand side is infinite, then the dp-rank is $\aleph_0$).
+
+\paragraph{First step}
+
+We fix an OAG $G$ hereafter.
+We will prove the following theorem:
+
+\begin{thm}
+	If there is a prime $p$ such that $\mathcal{S}_p$ is infinite, then the dp-rank of $G$ is $\aleph_0$.
+\end{thm}
+
+We sketch the proof.
+As we know that the dp-rank is at most $\aleph_0$, it suffices to show that the dp-rank is at least $\aleph_0$.
+We may assume that $G$ is a monster model.
+Fix a prime $p$ such that $\mathcal{S}_p$ is infinite.
+We can choose an infinite sequence $H_0 < H_1 < \dots$ from $\mathcal{S}_p \setminus \left\{ \emptyset \right\}$.
+For each $k < \omega$, there is an element $a_k \in G$ such that $\mathfrak{s}_p(a_k) = H_k$ and $\mathfrak{s}_{p^r}(a_k) < H_{k+1}$ for all $r \geq 1$, since there is $H'_k \in \mathcal{T}_p$ such that $H_k \leq H'_k < H_{k+1}$, and $\mathfrak{s}_p(a) \leq \mathfrak{s}_{p^2}(a) \leq \dots \leq \mathfrak{t}_p(a)$ for all $a \in G$.
+Then for any $1 \leq r \leq N + 1 < \omega$, we have $\mathfrak{s}_{p^r}(a_0 + p a_1 + \dots + p^N a_N) = H_{r-1}$.
+Now we choose $H_{0,0} < H_{0,1} < \dots < H_{1,0} < H_{1,1} < \dots$ from $\mathcal{S}_p$.
+For any function $\eta: \omega \to \omega$, we can choose $a_{\eta} \in G$ such that $\mathfrak{s}_{p^r}(a_{\eta}) = H_{r-1, \eta(r-1)}$ for all $r \geq 1$.
+These give an ICT-pattern of depth $\aleph_0$, and hence the dp-rank of $G$ is at least $\aleph_0$.
 
 %\addcontentsline{toc}{section}{References}
 \begin{sloppypar}

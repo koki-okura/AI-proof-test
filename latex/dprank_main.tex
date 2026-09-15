@@ -1,0 +1,58 @@
+\documentclass{article}
+\usepackage{amsmath,amssymb,amsthm,thmtools,enumitem,bm,graphicx,xcolor,microtype}
+\usepackage[T1]{fontenc}
+
+\usepackage[style = ext-numeric, sorting = nyt, giveninits = false, maxbibnames = 8, minbibnames = 3, date = year, isbn = false, doi = true, eprint = true, url = true, backref = true]{biblatex}
+\addbibresource{ZoteroDatabase.bib}
+\renewbibmacro{in:}{}
+\DeclareFieldFormat{titlecase}{\MakeSentenceCase*{#1}}
+\DeclareFieldFormat{titlecase:journaltitle}{{#1}}
+
+\usepackage[unicode]{hyperref}
+
+\theoremstyle{definition}
+\newtheorem{dfn}{Definition}[section]
+\newtheorem{ntt}[dfn]{Notation}
+\newtheorem{ex}[dfn]{Example}
+\newtheorem{case}{Case}
+\newtheorem{cnd}{Condition}
+
+\theoremstyle{remark}
+\newtheorem{rmk}[dfn]{Remark}
+\newtheorem*{sroof}{Sketch of Proof}
+
+\theoremstyle{plain}
+\newtheorem{thm}[dfn]{Theorem}
+\newtheorem*{thm*}{Theorem}
+\newtheorem{prop}[dfn]{Proposition}
+\newtheorem{lem}[dfn]{Lemma}
+\newtheorem{cor}[dfn]{Corollary}
+\newtheorem{fct}[dfn]{Fact}
+\newtheorem{conj}[dfn]{Conjecture}
+\newtheorem{qst}[dfn]{Question}
+\newtheorem{clm}{Claim}
+
+\renewcommand{\qedsymbol}{$\blacksquare$}
+
+\declaretheoremstyle[headfont = \normalfont\itshape, qed = $\blacksquare_{\mathrm{Claim}}$]{prooc}
+\declaretheorem[style = prooc, name = Proof of Claim, numbered = no]{prooc}
+
+\def\sectionautorefname~#1\null{Chapter~#1\null}
+\def\subsectionautorefname~#1\null{Section~#1\null}
+
+\title{}
+\author{}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+
+%\addcontentsline{toc}{section}{References}
+%\begin{sloppypar}
+%	\printbibliography
+%\end{sloppypar}
+
+\end{document}

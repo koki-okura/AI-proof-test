@@ -3,7 +3,7 @@
 \usepackage[T1]{fontenc}
 
 \usepackage[style = ext-numeric, sorting = nyt, giveninits = false, maxbibnames = 8, minbibnames = 3, date = year, isbn = false, doi = true, eprint = true, url = true, backref = true]{biblatex}
-\addbibresource{ZoteroDatabase.bib}
+\addbibresource{../../ZoteroDatabase.bib}
 \renewbibmacro{in:}{}
 \DeclareFieldFormat{titlecase}{\MakeSentenceCase*{#1}}
 \DeclareFieldFormat{titlecase:journaltitle}{{#1}}
@@ -50,9 +50,168 @@
 
 \tableofcontents
 
-%\addcontentsline{toc}{section}{References}
-%\begin{sloppypar}
-%	\printbibliography
-%\end{sloppypar}
+\section{The infinite spine case}
+
+Throughout this section, $G$ denotes an ordered abelian group.
+For $n \geq 2$ and $a \notin nG$, recall that $\mathfrak{s}_n(a)$ is the largest convex subgroup $H \Subset G$ such that $a \notin H + nG$.
+If $a \in nG$, we set $\mathfrak{s}_n(a) = \emptyset$, and we regard $\emptyset$ as being smaller than every convex subgroup.
+We set $\mathcal{S}_n = \left\{ \mathfrak{s}_n(a) \mid a \in G \right\}$.
+The subgroups $\mathfrak{s}_n(a)$ are uniformly definable in $a$ \cite[Lemma 2.1]{Cluckers2011QuaEli}.
+Consequently, comparisons and equalities between values of the maps $\mathfrak{s}_n$ are formulas in $L_{\mathrm{oag}}$.
+
+\begin{lem}[{\cite[Lemma 2.8(2) and Remark 2.6]{Okura2026DisOrd}}]\label{lem:BasicPropertiesOfS}
+	Let $p$ be a prime, $r \geq 1$, and $a,b \in G$.
+	\begin{enumerate}
+		\item If $0 \leq j < r$, then
+		\[
+			\mathfrak{s}_{p^r}(p^j a) = \mathfrak{s}_{p^{r-j}}(a).
+		\]
+		If $j \geq r$, then $\mathfrak{s}_{p^r}(p^j a) = \emptyset$.
+		\item If $\mathfrak{s}_{p^r}(a) \neq \mathfrak{s}_{p^r}(b)$, then
+		\[
+			\mathfrak{s}_{p^r}(a+b)
+			=
+			\max \left\{ \mathfrak{s}_{p^r}(a),\mathfrak{s}_{p^r}(b) \right\}.
+		\]
+	\end{enumerate}
+\end{lem}
+
+\begin{lem}\label{lem:RepresentativeBetweenSValues}
+	Let $p$ be a prime and let $H<H'$ be nonempty elements of $\mathcal{S}_p$.
+	There exists $a\in H'$ such that
+	\[
+		\mathfrak{s}_p(a)=H
+		\quad\text{and}\quad
+		\mathfrak{s}_{p^r}(a)<H'
+	\]
+	for every $r\geq 1$.
+\end{lem}
+
+\begin{proof}
+	Choose $b\in G$ such that $\mathfrak{s}_p(b)=H$.
+	Since $H'>H$, the maximality of $H$ gives $b\in H'+pG$.
+	We may therefore write $b=a+pc$ with $a\in H'$ and $c\in G$.
+	As $a-b\in pG$, we have $\mathfrak{s}_p(a)=\mathfrak{s}_p(b)=H$.
+
+	Fix $r\geq 1$.
+	If $\mathfrak{s}_{p^r}(a)=\emptyset$, there is nothing to prove.
+	Otherwise, put $K=\mathfrak{s}_{p^r}(a)$.
+	If $K\geq H'$, then $a\in H'\subseteq K$, contrary to $a\notin K+p^rG$.
+	Hence, $K<H'$.
+\end{proof}
+
+\begin{lem}[Finite coding]\label{lem:FiniteCoding}
+	Let $p$ be a prime and
+	\[
+		K_0<K_1<\dots<K_N
+	\]
+	be nonempty elements of $\mathcal{S}_p$.
+	There exists $x\in G$ such that
+	\[
+		\mathfrak{s}_{p^{i+1}}(x)=K_i
+	\]
+	for every $0\leq i\leq N$.
+\end{lem}
+
+\begin{proof}
+	For each $j<N$, use \autoref{lem:RepresentativeBetweenSValues} to choose $a_j\in G$ such that
+	\[
+		\mathfrak{s}_p(a_j)=K_j
+		\quad\text{and}\quad
+		\mathfrak{s}_{p^r}(a_j)<K_{j+1}
+	\]
+	for every $r\geq 1$.
+	Also choose $a_N\in G$ with $\mathfrak{s}_p(a_N)=K_N$, and set
+	\[
+		x=a_0+pa_1+\dots+p^Na_N.
+	\]
+	Fix $0\leq i\leq N$.
+	By \autoref{lem:BasicPropertiesOfS},
+	\[
+		\mathfrak{s}_{p^{i+1}}(p^ia_i)=\mathfrak{s}_p(a_i)=K_i.
+	\]
+	If $j<i$, then
+	\[
+		\mathfrak{s}_{p^{i+1}}(p^ja_j)
+		=
+		\mathfrak{s}_{p^{i+1-j}}(a_j)
+		<
+		K_{j+1}
+		\leq
+		K_i,
+	\]
+	while, if $j>i$, then $\mathfrak{s}_{p^{i+1}}(p^ja_j)=\emptyset$.
+	Thus, among the summands of $x$, the unique maximal $\mathfrak{s}_{p^{i+1}}$-value is $K_i$.
+	Repeatedly applying \autoref{lem:BasicPropertiesOfS}(2) gives $\mathfrak{s}_{p^{i+1}}(x)=K_i$.
+\end{proof}
+
+\begin{thm}\label{thm:InfiniteSpine}
+	If $\mathcal{S}_p$ is infinite for some prime $p$, then the dp-rank of $G$ is $\aleph_0$.
+\end{thm}
+
+\begin{proof}
+	We work in a sufficiently saturated monster model of $\operatorname{Th}(G)$.
+	Since $\mathcal{S}_p$ is an infinite interpretable linear order, compactness allows us to choose elements
+	\[
+		(b_{i,k})_{i,k<\omega}
+	\]
+	such that all the values
+	\[
+		H_{i,k}:=\mathfrak{s}_p(b_{i,k})
+	\]
+	are nonempty and
+	\[
+		H_{i,k}<H_{j,l}
+		\quad\text{whenever}\quad
+		i<j
+		\ \text{or}\
+		(i=j\ \text{and}\ k<l).
+	\]
+	Indeed, every finite part of these requirements merely asks for a finite chain of distinct nonempty elements of the infinite linear order $\mathcal{S}_p$.
+
+	For a function $\eta:\omega\to\omega$, consider the partial type
+	\[
+		\Sigma_\eta(x)
+		=
+		\left\{
+			\mathfrak{s}_{p^{i+1}}(x)=H_{i,\eta(i)}
+			\;\middle|\;
+			i<\omega
+		\right\}.
+	\]
+	This type is finitely satisfiable.
+	Indeed, given $N<\omega$, the values
+	\[
+		H_{0,\eta(0)}<H_{1,\eta(1)}<\dots<H_{N,\eta(N)}
+	\]
+	form a finite increasing chain, so \autoref{lem:FiniteCoding} realizes the first $N+1$ conditions of $\Sigma_\eta$.
+	By saturation, there is $a_\eta\in G$ realizing $\Sigma_\eta$.
+
+	For every $i<\omega$, let
+	\[
+		\varphi_i(x;y)
+		\quad\text{be the formula}\quad
+		\mathfrak{s}_{p^{i+1}}(x)=\mathfrak{s}_p(y).
+	\]
+	As noted above, this is an $L_{\mathrm{oag}}$-formula.
+	For all $\eta:\omega\to\omega$, $i<\omega$, and $k<\omega$, we have
+	\[
+		\models\varphi_i(a_\eta;b_{i,k})
+		\quad\Longleftrightarrow\quad
+		H_{i,\eta(i)}=H_{i,k}
+		\quad\Longleftrightarrow\quad
+		\eta(i)=k.
+	\]
+	Hence, these formulas and parameters form an ICT-pattern of depth $\aleph_0$, and therefore the dp-rank of $G$ is at least $\aleph_0$.
+
+	Every ordered abelian group has NIP \cite{Gurevich1984TheOrd}.
+	Since $L_{\mathrm{oag}}$ is countable, this gives dp-rank at most $\aleph_0$.
+	Consequently, the dp-rank of $G$ is exactly $\aleph_0$.
+\end{proof}
+
+\addcontentsline{toc}{section}{References}
+\begin{sloppypar}
+	\printbibliography
+\end{sloppypar}
 
 \end{document}

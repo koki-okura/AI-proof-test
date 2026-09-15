@@ -125,6 +125,28 @@ Now we choose $H_{0,0} < H_{0,1} < \dots < H_{1,0} < H_{1,1} < \dots$ from $\mat
 For any function $\eta: \omega \to \omega$, we can choose $a_{\eta} \in G$ such that $\mathfrak{s}_{p^r}(a_{\eta}) = H_{r-1, \eta(r-1)}$ for all $r \geq 1$.
 These give an ICT-pattern of depth $\aleph_0$, and hence the dp-rank of $G$ is at least $\aleph_0$.
 
+\paragraph{Second theorem: lower bound}
+We assume that $G$ has finite spines hereafter.
+Let $\mathbb{P}$ be the set of primes.
+We will prove the following theorem:
+
+\begin{thm*}
+	The dp-rank of $G$ is at least $1 + \sum_{p \in \mathbb{P}} \left| \mathcal{S}_p^{\infty} \right|$ (if the right-hand side is infinite, then the dp-rank is $\aleph_0$).
+\end{thm*}
+
+The sketch of the proof is as follows.
+We may assume that $G$ is a monster model.
+Let $P_0$ be a finite set of primes, and for each $p \in P_0$, let $H_{p,0} < H_{p,1} < \dots < H_{p,n_p}$ be finitely many elements of $\mathcal{S}_p^{\infty}$.
+For each $p \in P_0$ and $0 \leq i < n_p$, we can choose $(a_{p,i}^k)_{k < \omega}$ such that $\mathfrak{s}_p(a_{p,i}^k) = H_{p,i}$ and (if $i < n_p - 1$) $\mathfrak{s}_{p^r}(a_{p,i}^k) < H_{p,i+1}$ for all $k < \omega$ and $r \geq 1$, and the images of $(a_{p,i}^k)_{k < \omega}$ in the rib $R_{H_{p,i}}^{\mathfrak{s}_p}$ are pairwise distinct.
+For each $\zeta: n_p \to \omega$, let $b_{p,\zeta} = a_{p,0}^{\zeta(0)} + p a_{p,1}^{\zeta(1)} + \dots + p^{n_p - 1} a_{p,n_p - 1}^{\zeta(n_p - 1)}$.
+Then, for each $0 \leq i < n_p$, we have $\mathfrak{s}_{p^{i+1}}(b_{p,\zeta}) = H_{p,i}$ and its image in $R_{H_{p,i}}^{\mathfrak{s}_p}$ is the same as that of $a_{p,i}^{\zeta(i)}$.
+We can construct an ICT-pattern of depth $n_p$ with these elements.
+Furthermore, by the Chinese remainder theorem (\cite[Lemma 2.1 (2)]{Okura2026DisOrd}), we can construct an ICT-pattern of depth $\sum_{p \in P_0} n_p$.
+Finally, let $N = \prod_{p \in P_0} p$.
+Since $N G$ is unbounded in $G$ and translation by an element of $N G$ does not affect the value of $\mathfrak{s}_p$ for any $p \in P_0$, we can construct intervals $(c_0, d_0) < (c_1, d_1) < \dots$ and ICT-patterns of depth $N$ lying in each of these intarvals.
+This leads to an ICT-pattern of depth $1 + \sum_{p \in P_0} n_p$.
+Compactness argument leads to the desired result.
+
 %\addcontentsline{toc}{section}{References}
 \begin{sloppypar}
 	\printbibliography

@@ -8,3 +8,5 @@ resources/
 *.run.xml
 *.synctex.gz
 *.toc
+*.fdb_latexmk
+*.fls

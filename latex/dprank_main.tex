@@ -32,6 +32,18 @@
 \newtheorem{qst}[dfn]{Question}
 \newtheorem{clm}{Claim}
 
+\renewcommand{\theHdfn}{\thesection.\arabic{dfn}}
+\renewcommand{\theHntt}{\theHdfn}
+\renewcommand{\theHex}{\theHdfn}
+\renewcommand{\theHrmk}{\theHdfn}
+\renewcommand{\theHthm}{\theHdfn}
+\renewcommand{\theHprop}{\theHdfn}
+\renewcommand{\theHlem}{\theHdfn}
+\renewcommand{\theHcor}{\theHdfn}
+\renewcommand{\theHfct}{\theHdfn}
+\renewcommand{\theHconj}{\theHdfn}
+\renewcommand{\theHqst}{\theHdfn}
+
 \renewcommand{\qedsymbol}{$\blacksquare$}
 
 \declaretheoremstyle[headfont = \normalfont\itshape, qed = $\blacksquare_{\mathrm{Claim}}$]{prooc}
@@ -207,6 +219,304 @@ Consequently, comparisons and equalities between values of the maps $\mathfrak{s
 	Every ordered abelian group has NIP \cite{Gurevich1984TheOrd}.
 	Since $L_{\mathrm{oag}}$ is countable, this gives dp-rank at most $\aleph_0$.
 	Consequently, the dp-rank of $G$ is exactly $\aleph_0$.
+\end{proof}
+
+\section{The lower bound in the finite-spine case}
+
+We now assume that $G$ is nontrivial and has finite spines.
+For a prime $p$ and $H\in\mathcal{S}_p\setminus\{\emptyset\}$, recall that
+\[
+	H^{[p]}=\bigcap_{K\Subset G,\,K>H}(K+pG)
+\]
+and
+\[
+	R_H^{\mathfrak{s}_p}
+	=
+	H^{[p]}/(H+pG)
+\]
+by \cite[Definition 2.10 and Lemma 2.14(1)]{Okura2026DisOrd}.
+We also use $\mathcal{S}_{p^r}=\mathcal{S}_p$ for every $r\geq 1$, as established in \cite[Lemma 2.9(3)]{Okura2026DisOrd}.
+We put
+\[
+	\mathcal{S}_p^\infty
+	=
+	\left\{
+		H\in\mathcal{S}_p\setminus\{\emptyset\}
+		\;\middle|\;
+		\left|R_H^{\mathfrak{s}_p}\right|=\infty
+	\right\}.
+\]
+
+\begin{lem}\label{lem:RepresentativesOfInfiniteRib}
+	Let $p$ be a prime and $H\in\mathcal{S}_p^\infty$.
+	There is a sequence $(a^k)_{k<\omega}$ such that
+	\[
+		\mathfrak{s}_p(a^k)
+		=
+		\mathfrak{s}_p(a^k-a^l)
+		=
+		H
+	\]
+	whenever $k\neq l$.
+	If $H<K$ for some $K\in\mathcal{S}_p\setminus\{\emptyset\}$, the sequence may moreover be chosen inside $K$.
+\end{lem}
+
+\begin{proof}
+	Choose elements $(u^k)_{k<\omega}$ whose images in
+	\[
+		R_H^{\mathfrak{s}_p}=H^{[p]}/(H+pG)
+	\]
+	are nonzero and pairwise distinct.
+	Thus, neither $u^k$ nor $u^k-u^l$ belongs to $H+pG$, while all these elements belong to $H^{[p]}$.
+	By \cite[Lemma 2.14(1)]{Okura2026DisOrd}, this says precisely that
+	\[
+		\mathfrak{s}_p(u^k)
+		=
+		\mathfrak{s}_p(u^k-u^l)
+		=
+		H
+	\]
+	for $k\neq l$.
+
+	Suppose that $H<K$.
+	Since $u^k\in H^{[p]}\subseteq K+pG$, we can write $u^k=a^k+pc_k$ with $a^k\in K$.
+	Replacing $u^k$ by $a^k$ does not change its image in $R_H^{\mathfrak{s}_p}$.
+	The images therefore remain nonzero and pairwise distinct, so the required equalities remain true.
+\end{proof}
+
+\begin{lem}[Simultaneous coding for one prime]\label{lem:SimultaneousCodingOnePrime}
+	Let $p$ be a prime and let
+	\[
+		H_0<H_1<\dots<H_{n-1}
+	\]
+	be elements of $\mathcal{S}_p^\infty$.
+	For each $i<n$, there is a sequence $(a_i^k)_{k<\omega}$ as in \autoref{lem:RepresentativesOfInfiniteRib}, and these sequences can be chosen so that $a_i^k\in H_{i+1}$ whenever $i<n-1$.
+	For $\zeta:n\to\omega$, set
+	\[
+		b_\zeta
+		=
+		a_0^{\zeta(0)}
+		+pa_1^{\zeta(1)}
+		+\dots
+		+p^{n-1}a_{n-1}^{\zeta(n-1)}.
+	\]
+	Then, for every $i<n$,
+	\begin{enumerate}
+		\item $\mathfrak{s}_{p^{i+1}}(b_\zeta)=H_i$;
+		\item the image of $b_\zeta$ in $R_{H_i}^{\mathfrak{s}_{p^{i+1}}}$ is the same as that of $p^ia_i^{\zeta(i)}$;
+		\item for every $k<\omega$,
+		\[
+			b_\zeta-p^ia_i^k\in H_i+p^{i+1}G
+			\quad\Longleftrightarrow\quad
+			k=\zeta(i).
+		\]
+	\end{enumerate}
+\end{lem}
+
+\begin{proof}
+	The required sequences are supplied by \autoref{lem:RepresentativesOfInfiniteRib}.
+	For $j<n-1$, the fact that $a_j^k\in H_{j+1}$ implies
+	\[
+		\mathfrak{s}_{p^r}(a_j^k)<H_{j+1}
+	\]
+	for every $r\geq 1$: otherwise, $\mathfrak{s}_{p^r}(a_j^k)\geq H_{j+1}$ would contain $a_j^k$, contrary to the definition of $\mathfrak{s}_{p^r}$.
+	The calculation in the proof of \autoref{lem:FiniteCoding} now gives
+	\[
+		\mathfrak{s}_{p^{i+1}}(b_\zeta)=H_i,
+	\]
+	which proves (1).
+
+	For $j<i$, we have $a_j^{\zeta(j)}\in H_{j+1}\subseteq H_i$, whereas for $j>i$, the term $p^ja_j^{\zeta(j)}$ belongs to $p^{i+1}G$.
+	Hence,
+	\[
+		b_\zeta-p^ia_i^{\zeta(i)}
+		\in
+		H_i+p^{i+1}G.
+	\]
+	Also, by \autoref{lem:BasicPropertiesOfS},
+	\[
+		\mathfrak{s}_{p^{i+1}}(p^ia_i^{\zeta(i)})
+		=
+		\mathfrak{s}_p(a_i^{\zeta(i)})
+		=
+		H_i.
+	\]
+	Thus, both elements represent classes in
+	\[
+		R_{H_i}^{\mathfrak{s}_{p^{i+1}}}
+		=
+		H_i^{[p^{i+1}]}/(H_i+p^{i+1}G),
+	\]
+	and the congruence $b_\zeta - p^i a_i^{\zeta(i)} \in H_i + p^{i+1}G$ proves (2).
+
+	If $k\neq\zeta(i)$, then
+	\[
+		p^i\left(a_i^{\zeta(i)}-a_i^k\right)
+		\notin
+		H_i+p^{i+1}G.
+	\]
+	Indeed, by the purity of the convex subgroup $H_i$, membership in the group on the right would imply
+	\[
+		a_i^{\zeta(i)}-a_i^k\in H_i+pG,
+	\]
+	contrary to \autoref{lem:RepresentativesOfInfiniteRib}.
+	Together with the preceding congruence, this proves (3).
+\end{proof}
+
+The following standard consequences of compactness will be used without proof.
+For the second assertion, finite satisfiability follows from the Chinese remainder theorem \cite[Lemma 2.1(2)]{Okura2026DisOrd}.
+
+\begin{lem}\label{lem:CofinalDivisibleTranslations}
+	Let $G$ be a sufficiently saturated monster model of the theory of a nontrivial ordered abelian group.
+	\begin{enumerate}
+		\item The type-definable subgroup
+		\[
+			D=\bigcap_{m\geq 2}mG
+		\]
+		is cofinal and coinitial in $G$.
+		\item Let $P_0\subseteq\mathbb{P}$ and $(a_p)_{p\in P_0}$ be a sequence from $G$.
+		There exists $a\in G$ such that
+		\[
+			a-a_p\in p^rG
+		\]
+		for every $p\in P_0$ and $r\geq 1$.
+	\end{enumerate}
+\end{lem}
+
+\begin{thm}\label{thm:LowerBoundFiniteSpines}
+	Let $G$ be a nontrivial ordered abelian group with finite spines.
+	Then
+	\[
+		\operatorname{dp\text{-}rk}(G)
+		\geq
+		1+\sum_{p\in\mathbb{P}}\left|\mathcal{S}_p^\infty\right|.
+	\]
+	If the sum on the right is infinite, then the dp-rank of $G$ is $\aleph_0$.
+\end{thm}
+
+\begin{proof}
+	We work in a sufficiently saturated monster model.
+	For each prime $p$, put $n_p=\left|\mathcal{S}_p^\infty\right|$ and, when $n_p>0$, enumerate
+	\[
+		\mathcal{S}_p^\infty
+		=
+		\{H_{p,0}<\dots<H_{p,n_p-1}\}.
+	\]
+	The number $n_p$ is finite because $G$ has finite spines.
+	Let
+	\[
+		\mathcal{I}
+		=
+		\{(p,i)\mid p\in\mathbb{P},\ 0\leq i<n_p\}.
+	\]
+	Thus,
+	\[
+		|\mathcal{I}|
+		=
+		\sum_{p\in\mathbb{P}}\left|\mathcal{S}_p^\infty\right|,
+	\]
+	and $\mathcal{I}$ is finite or countable.
+
+	For each $p$ with $n_p>0$, choose sequences $(a_{p,i}^k)_{k<\omega}$ as in \autoref{lem:SimultaneousCodingOnePrime}, and denote the corresponding coding elements by $b_{p,\zeta}$ for $\zeta:n_p\to\omega$.
+	For $(p,i)\in\mathcal{I}$, let
+	\[
+		\varphi_{p,i}(x;y)
+		\quad\text{be the formula}\quad
+		x-y\in\mathfrak{s}_{p^{i+1}}(y)+p^{i+1}G.
+	\]
+	This is an $L_{\mathrm{oag}}$-formula by the uniform definability of $\mathfrak{s}_{p^{i+1}}$.
+	We use the parameter sequence
+	\[
+		\left(p^ia_{p,i}^k\right)_{k<\omega}
+	\]
+	in the row indexed by $(p,i)$.
+	By \autoref{lem:BasicPropertiesOfS},
+	\[
+		\mathfrak{s}_{p^{i+1}}(p^ia_{p,i}^k)
+		=
+		H_{p,i}.
+	\]
+
+	Fix a function $\eta:\mathcal{I}\to\omega$ and consider
+	\[
+		q_\eta(x)
+		=
+		\left\{
+			\varphi_{p,i}
+			\left(x;p^ia_{p,i}^k\right)^{\eta(p,i)=k}
+			\;\middle|\;
+			(p,i)\in\mathcal{I},\ k<\omega
+		\right\}.
+	\]
+	Here, the superscript means that the formula is negated when $\eta(p,i)\neq k$.
+	For each $p$ with $n_p>0$, let
+	\[
+		\eta_p:n_p\to\omega,
+		\qquad
+		\eta_p(i)=\eta(p,i).
+	\]
+	By \autoref{lem:CofinalDivisibleTranslations}(2), there is $b_\eta\in G$ such that
+	\[
+		b_\eta-b_{p,\eta_p}\in p^rG
+	\]
+	for every $p$ with $n_p>0$ and $r\geq 1$.
+	Part (3) of \autoref{lem:SimultaneousCodingOnePrime} then shows that $b_\eta\models q_\eta$.
+
+	It remains to add the row arising from the order.
+	Since the monster is sufficiently saturated, there exists $c>0$ such that
+	\[
+		-c<b_\eta<c
+	\]
+	for every $\eta:\mathcal{I}\to\omega$.
+	By \autoref{lem:CofinalDivisibleTranslations}, choose
+	\[
+		t_0<t_1<\dots
+	\]
+	from $D$ so that $t_{k+1}-t_k>2c$ for every $k<\omega$.
+	Set
+	\[
+		I_k=(t_k-c,t_k+c).
+	\]
+	These intervals are pairwise disjoint and satisfy $I_0<I_1<\dots$.
+	We take
+	\[
+		\psi(x;y,z):=(y<x<z)
+	\]
+	for the additional row, with parameter sequence
+	\[
+		(t_k-c,t_k+c)_{k<\omega}.
+	\]
+
+	Let $\nu:\{\ast\}\mathbin{\dot\cup}\mathcal{I}\to\omega$, and put $\eta=\nu|_{\mathcal{I}}$.
+	The element
+	\[
+		a_\nu=b_\eta+t_{\nu(\ast)}
+	\]
+	belongs to $I_{\nu(\ast)}$.
+	Moreover, $t_{\nu(\ast)}\in p^{i+1}G$ for every $(p,i)\in\mathcal{I}$, so translation by $t_{\nu(\ast)}$ does not change the truth of any formula $\varphi_{p,i}$.
+	It follows that
+	\[
+		\models\psi(a_\nu;t_k-c,t_k+c)
+		\quad\Longleftrightarrow\quad
+		\nu(\ast)=k
+	\]
+	and
+	\[
+		\models
+		\varphi_{p,i}
+		\left(a_\nu;p^ia_{p,i}^k\right)
+		\quad\Longleftrightarrow\quad
+		\nu(p,i)=k.
+	\]
+	We have therefore constructed an ICT-pattern of depth
+	\[
+		1+|\mathcal{I}|
+		=
+		1+\sum_{p\in\mathbb{P}}\left|\mathcal{S}_p^\infty\right|,
+	\]
+	as required.
+	If the sum is infinite, the ICT-pattern has depth $\aleph_0$.
+	The NIP upper bound recalled in the proof of \autoref{thm:InfiniteSpine} gives $\operatorname{dp\text{-}rk}(G)\leq\aleph_0$, so equality holds in this case.
 \end{proof}
 
 \addcontentsline{toc}{section}{References}

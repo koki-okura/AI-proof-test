@@ -519,6 +519,427 @@ For the second assertion, finite satisfiability follows from the Chinese remaind
 	The NIP upper bound recalled in the proof of \autoref{thm:InfiniteSpine} gives $\operatorname{dp\text{-}rk}(G)\leq\aleph_0$, so equality holds in this case.
 \end{proof}
 
+\section{The upper bound in the finite-spine case}
+
+We continue to assume that $G$ is nontrivial and has finite spines, and now also assume that
+\[
+	N
+	=
+	\sum_{p\in\mathbb{P}}
+	\left|\mathcal{S}_p^\infty\right|
+\]
+is finite.
+We use the following standard criterion.
+
+\begin{fct}[Indiscernible-sequence criterion; {\cite[Theorem 4.18(iii)]{Simon2015GuiNIP}}]\label{fct:DpRankCriterion}
+	Let $T$ be a complete theory and let $n\geq 1$.
+	Suppose that, whenever $I\models\mathrm{DLO}$, $(\overline{a}_i)_{i\in I}$ is an indiscernible sequence, and $b$ is a singleton, there is a decomposition
+	\[
+		I_0<J_0<I_1<\dots<J_{n-1}<I_n
+	\]
+	such that each $I_l$ has no endpoints, each $J_l$ has at most one element, and
+	\[
+		\operatorname{tp}(\overline{a}_i/b)
+		=
+		\operatorname{tp}(\overline{a}_j/b)
+	\]
+	whenever $i,j\in I_l$.
+	Then $\operatorname{dp\text{-}rk}(T)\leq n$.
+\end{fct}
+
+We will also use the following specialization of relative quantifier elimination.
+
+\begin{prop}[{\cite[Proposition 2.26]{Okura2026DisOrd}}]\label{prop:FiniteSpineElementaryMap}
+	Let $G$ be an ordered abelian group with finite spines and let $f$ be a partial map from $G$ to $G$ whose domain is a subgroup.
+	Suppose that $f$ is an ordered group embedding and, for every $a$ in its domain, every prime $p$, and every $r\geq 1$, the following hold:
+	\begin{align*}
+		\mathfrak{s}_{p^r}(f(a))&=\mathfrak{s}_{p^r}(a),&
+		\mathfrak{t}_p(f(a))&=\mathfrak{t}_p(a),\\
+		a=_{\bullet}k_{\bullet}
+		&\Longleftrightarrow
+		f(a)=_{\bullet}k_{\bullet},&
+		a\equiv_{p^r,\bullet}k_{\bullet}
+		&\Longleftrightarrow
+		f(a)\equiv_{p^r,\bullet}k_{\bullet}.
+	\end{align*}
+	Here the third condition is required for every $k\in\mathbb{Z}\setminus\{0\}$, and the fourth for every $1\leq k<p^r$.
+	Then $f$ is elementary.
+\end{prop}
+
+\begin{proof}
+	We use the identity map on all the auxiliary sorts in the cited proposition.
+	The reduction of the predicates $x\equiv_{m,\bullet}k_{\bullet}$ to prime-power moduli is given by \cite[Lemma 2.22]{Okura2026DisOrd}.
+	It only remains to explain why its predicates $D_{p^r}^{[p^s]}$, where $s\geq r$, require no additional hypothesis.
+
+	Indeed, in the finite-spine case,
+	\[
+		D_{p^r}^{[p^s]}(a)
+		\quad\Longleftrightarrow\quad
+		a\notin p^rG.
+	\]
+	The forward implication is immediate from the definition.
+	Conversely, put $H=\mathfrak{s}_{p^r}(a)$.
+	If $H$ has a successor $H'$ in $\mathcal{S}_p$, then
+	\[
+		H^{[p^s]}=H'+p^sG,
+	\]
+	while, if $H$ has no successor, then $H^{[p^s]}=G$.
+	In either case, the definition of $\mathfrak{s}_{p^r}(a)$ gives
+	\[
+		a\in H^{[p^s]}+p^rG
+		\quad\text{and}\quad
+		a\notin H+p^rG.
+	\]
+	Thus $H$ witnesses $D_{p^r}^{[p^s]}(a)$.
+	Since preservation of $\mathfrak{s}_{p^r}$ also preserves membership in $p^rG$, the result follows.
+\end{proof}
+
+\begin{lem}[Higher prime-power ribs]\label{lem:HigherPrimePowerRibs}
+	Let $p$ be a prime, $H\in\mathcal{S}_p\setminus\{\emptyset\}$, and $r\geq 1$.
+	If $R_H^{\mathfrak{s}_p}$ is finite, then $R_H^{\mathfrak{s}_{p^r}}$ is finite.
+	Consequently,
+	\[
+		\left|R_H^{\mathfrak{s}_{p^r}}\right|=\infty
+		\quad\Longrightarrow\quad
+		H\in\mathcal{S}_p^\infty.
+	\]
+\end{lem}
+
+\begin{proof}
+	If $H$ has a successor $H'$ in the finite chain $\mathcal{S}_p$, set $K=H'$; otherwise set $K=G$.
+	Using $\mathcal{S}_{p^r}=\mathcal{S}_p$, we obtain
+	\[
+		H^{[p^r]}=K+p^rG.
+	\]
+	Convex subgroups are pure, so
+	\[
+		K\cap(H+p^rG)=H+p^rK.
+	\]
+	Consequently,
+	\[
+		R_H^{\mathfrak{s}_{p^r}}
+		\cong
+		(K/H)/p^r(K/H),
+		\qquad
+		R_H^{\mathfrak{s}_p}
+		\cong
+		(K/H)/p(K/H).
+	\]
+	For any abelian group $A$, finiteness of $A/pA$ implies finiteness of $A/p^rA$, by applying successively the quotients in the filtration
+	\[
+		A\supseteq pA\supseteq\dots\supseteq p^rA.
+	\]
+	This proves the lemma.
+\end{proof}
+
+The next lemma isolates the single contribution coming from the order and from the ordered ribs associated with the maps $\mathfrak{t}_p$.
+
+\begin{lem}[The common order cut]\label{lem:CommonOrderCut}
+	Let $I\models\mathrm{DLO}$, let $(\overline{a}_i)_{i\in I}$ be indiscernible, and let $b\in G$.
+	There is a decomposition
+	\[
+		I^-<J<I^+
+	\]
+	with $|J|\leq 1$ and with $I^-$ and $I^+$ having no endpoints, such that the following data are constant as $i$ varies in $I^-$, and also constant as $i$ varies in $I^+$:
+	\begin{enumerate}
+		\item the sign of $\overline{m}\cdot\overline{a}_i-mb$;
+		\item $\mathfrak{t}_p(\overline{m}\cdot\overline{a}_i-mb)$;
+		\item the truth value of
+		\[
+			\overline{m}\cdot\overline{a}_i-mb
+			=_{\bullet}k_{\bullet}.
+		\]
+	\end{enumerate}
+	Here the assertions hold simultaneously for all integer tuples $\overline{m}$, all nonzero integers $m$, all primes $p$, and all nonzero integers $k$.
+\end{lem}
+
+\begin{proof}
+	Let $\mathcal{H}$ consist of $\{0\}$ and all nonempty convex subgroups occurring in one of the finite auxiliary sorts $\mathcal{S}_p$ or $\mathcal{T}_p$.
+	Every member of $\mathcal{H}$ is algebraic as an imaginary over $\emptyset$.
+	We may therefore use the standard fact that an infinite indiscernible sequence remains indiscernible over $\operatorname{acl}^{\mathrm{eq}}(\emptyset)$.
+
+	Fix $H\in\mathcal{H}$, an integer tuple $\overline{m}$, a nonzero integer $m$, and an integer $k$, where either $k=0$ or $G/H$ is discrete.
+	Put $c_i=\overline{m}\cdot\overline{a}_i$ and consider
+	\[
+		\operatorname{sgn}
+		\left(
+			(c_i-mb)/H-k_H
+		\right).
+	\]
+	The sequence $(c_i/H)_{i\in I}$ is either constant or strictly monotone.
+	Hence, its signs relative to the fixed element $mb/H+k_H$ are constant, or change at a single cut of $I$, with at most one index at which equality holds.
+
+	We claim that two cuts arising in this way cannot have two indices of $I$ strictly between them.
+	Suppose toward a contradiction that two configurations determine cuts $\gamma<\delta$, and choose
+	\[
+		h<\gamma<r<s<\delta<l.
+	\]
+	Let their convex subgroups be $H$ and $K$.
+	Set $L=\max\{H,K\}$ and project both configurations to $G/L$.
+	A crossing either remains a crossing at the same cut after projection, or its difference from the relevant fixed element becomes identically zero in $G/L$.
+	To justify this, the projection of a monotone indiscernible sequence is again constant or strictly monotone.
+	If the projected difference is nonzero somewhere on each side of the original cut, order preservation forces it to have the corresponding negative and positive signs, so its cut is unchanged.
+	Otherwise it is zero at two distinct indices; monotonicity then makes it identically zero.
+	A nonzero constant is impossible, since its sign would prevent the original difference from changing sign.
+
+	First suppose that both crossings survive in $G/L$.
+	After replacing a configuration by its negative if necessary, we may take the coefficient of $b$ to be positive.
+	In the divisible hull of $G/L$, write the two configurations as monotone sequences $(u_i)$ and $(v_i)$ crossing the same element $b/L$ at $\gamma$ and $\delta$, respectively; the constants $k_H$ and $k_K$ have been absorbed into $u_i$ and $v_i$.
+	This is only shorthand: after clearing positive denominators, every comparison below is a formula over the algebraic imaginary $L$, so indiscernibility applies.
+
+	If $u_i$ and $v_i$ have the same orientation, use the indices chosen above.
+	If both are increasing, then
+	\[
+		u_r>v_s
+		\quad\text{but}\quad
+		u_h<v_l;
+	\]
+	if both are decreasing, the two inequalities are reversed.
+	This contradicts indiscernibility, since both $(r,s)$ and $(h,l)$ are increasing pairs.
+	If the two sequences have opposite orientations, then the truth of $u_i<v_i$ differs on the two sides of $\gamma$ and $\delta$, again contradicting indiscernibility.
+
+	It remains to consider the case where, say, the first crossing vanishes after projection.
+	Then $H<L=K$, and hence the second crossing survives.
+	Moreover,
+	\[
+		c_i-mb\in L
+	\]
+	for every $i$.
+	Here $k_H$ maps to zero in $G/L$: if $G/H$ is discrete, every nonzero convex subgroup of $G/H$ contains its least positive element.
+	For the second configuration, with $d_i=\overline{n}\cdot\overline{a}_i$ and positive coefficient $m'$, we have in $G/L$
+	\[
+		m(d_i-m'b-k_K)
+		=
+		md_i-m'c_j-m(k_K)
+	\]
+	for every $j$.
+	Choosing $j<i$, the sign of the expression on the right is independent of the increasing pair $(j,i)$ by indiscernibility.
+	Thus, the second configuration cannot cross at $\delta$, a contradiction.
+	The other case is symmetric.
+	This proves the claim.
+
+	Since $I$ is dense, the claim implies that all the crossing cuts either coincide, or are the two cuts immediately adjacent to a single index $q$.
+	In the latter case put $J=\{q\}$.
+	In the former case cut at the common cut, placing its possible endpoint in $J$; if there are no crossings, choose any $q\in I$ and put $J=\{q\}$.
+	Let $I^-$ and $I^+$ be the resulting initial and final parts.
+	They have no endpoints.
+	The quotient signs considered above are constant on each of $I^-$ and $I^+$.
+	Taking $H=\{0\}$ and $k=0$ gives (1).
+	For (2), note that, because $\mathcal{S}_p$ is finite, $\mathfrak{t}_p(x)$ is determined by the truth values of $x\in H$ for $H\in\mathcal{S}_p$, and these are determined by the signs of $x/H$.
+	Finally, by \cite[Lemma 2.21(1)]{Okura2026DisOrd}, a witness to $x=_{\bullet}k_{\bullet}$ is $\mathfrak{t}_2(x)$.
+	Thus (2), together with constancy of the sign of $x/H-k_H$, gives (3).
+\end{proof}
+
+We now control all contributions from the $\mathfrak{s}_{p^r}$-side.
+For fixed $p$ and $H\in\mathcal{S}_p^\infty$, call $i_0\in I$ a \emph{$(p,H)$-exception} if there are an integer tuple $\overline{m}$, a nonzero integer $m$, an integer $r\geq 1$, and an integer $k$ such that either $k=0$ or $G/H$ is discrete, and
+\[
+	(\overline{m}\cdot\overline{a}_i-mb)/H
+	\equiv_{p^r}
+	k_H
+	\quad\Longleftrightarrow\quad
+	i=i_0.
+\]
+
+\begin{lem}[Uniqueness of the congruence exception]\label{lem:UniqueCongruenceException}
+	For each $p$ and $H\in\mathcal{S}_p^\infty$, there is at most one $(p,H)$-exception.
+\end{lem}
+
+\begin{proof}
+	Suppose that $i_0$ and $i_1$ are exceptions, witnessed respectively by
+	\[
+		(c_i,m,r,k)
+		\quad\text{and}\quad
+		(d_i,m',r',l),
+	\]
+	where $c_i$ and $d_i$ are fixed integer-linear terms in $\overline{a}_i$.
+	If $p^r\mid m$, then the first congruence is independent of $b$.
+	It cannot hold at exactly one index of an indiscernible sequence over the algebraic imaginary $H$.
+	Thus $v_p(m)<r$, and similarly $v_p(m')<r'$.
+
+	Let $R\geq r,r'$.
+	Multiplying the first congruence by $p^{R-r}$ replaces its modulus by $p^R$ without changing its set of solutions.
+	Indeed, purity and torsion-freeness of $G/H$ give
+	\[
+		p^{R-r}z\in H+p^RG
+		\quad\Longleftrightarrow\quad
+		z\in H+p^rG.
+	\]
+	Do the same with the second congruence.
+	Multiplication by an integer prime to $p$ preserves the entire solution set.
+	Using an inverse for the prime-to-$p$ part of each coefficient modulo $p^R$, we may therefore write the two exceptional congruences in the form
+	\begin{align*}
+		C_{i_0}/H
+		&\equiv_{p^R}
+		p^e b/H+\kappa_H,\\
+		D_{i_1}/H
+		&\equiv_{p^R}
+		p^f b/H+\lambda_H,
+	\end{align*}
+	where $0\leq e,f<R$, and each congruence holds at exactly its displayed index.
+
+	Assume first that $i_0<i_1$.
+	If $e\leq f$, eliminating $b$ gives
+	\[
+		(D_{i_1}-p^{f-e}C_{i_0})/H
+		\equiv_{p^R}
+		\lambda_H-p^{f-e}\kappa_H.
+	\]
+	By indiscernibility over the algebraic imaginary $H$, the same relation holds with $i_1$ replaced by any $j>i_0$.
+	Subtracting yields
+	\[
+		D_j-D_{i_1}\in H+p^RG.
+	\]
+	Hence the second exceptional congruence also holds at $j$, a contradiction.
+	If $e>f$, eliminate $b$ in the other direction and replace the increasing pair $(i_0,i_1)$ by $(h,i_1)$ for some $h<i_1$, $h\neq i_0$.
+	This gives $C_h-C_{i_0}\in H+p^RG$, contradicting uniqueness of the first congruence.
+	The case $i_1<i_0$ is symmetric.
+\end{proof}
+
+\begin{lem}[Control of the $\mathfrak{s}$-data]\label{lem:ControlOfSData}
+	For every pair $(p,H)$ with $H\in\mathcal{S}_p^\infty$, choose its exceptional index if one exists, and let $E$ be the set of indices so obtained.
+	Then $|E|\leq N$.
+	If $C\subseteq I$ is convex and $C\cap E=\emptyset$, then for any $i,j\in C$, every integer tuple $\overline{m}$, every nonzero integer $m$, every prime $p$, every $r\geq 1$, and every $1\leq k<p^r$, we have
+	\begin{align*}
+		\mathfrak{s}_{p^r}
+		(\overline{m}\cdot\overline{a}_i-mb)
+		&=
+		\mathfrak{s}_{p^r}
+		(\overline{m}\cdot\overline{a}_j-mb),\\
+		\overline{m}\cdot\overline{a}_i-mb
+		\equiv_{p^r,\bullet}k_{\bullet}
+		&\Longleftrightarrow
+		\overline{m}\cdot\overline{a}_j-mb
+		\equiv_{p^r,\bullet}k_{\bullet}.
+	\end{align*}
+\end{lem}
+
+\begin{proof}
+	The estimate for $|E|$ follows from \autoref{lem:UniqueCongruenceException}.
+	Fix
+	\[
+		x_i=\overline{m}\cdot\overline{a}_i-mb
+	\]
+	and $p^r$.
+	By indiscernibility and finiteness of $\mathcal{S}_p$, there is a fixed value
+	\[
+		K
+		=
+		\mathfrak{s}_{p^r}(x_j-x_i)
+	\]
+	for all $i<j$.
+	More precisely, constancy follows because the sequence is indiscernible over the algebraic elements of the finite auxiliary sort.
+	The isosceles-triangle property shows that either
+	$(\mathfrak{s}_{p^r}(x_i))_{i\in I}$ is constant, or there is a unique $i_0$ such that
+	\[
+		\mathfrak{s}_{p^r}(x_{i_0})<K
+		\quad\text{and}\quad
+		\mathfrak{s}_{p^r}(x_i)=K
+		\quad(i\neq i_0).
+	\]
+	Indeed, unequal values at two indices must have maximum $K$.
+	Once one value is below $K$, comparison with that index forces every other value to equal $K$; two values below $K$, or any value above $K$, would contradict
+	$\mathfrak{s}_{p^r}(x_j-x_i)=K$.
+	In the second case, the images of the $x_i$, for $i\neq i_0$, in
+	$R_K^{\mathfrak{s}_{p^r}}$ are pairwise distinct.
+	Thus this rib is infinite, and \autoref{lem:HigherPrimePowerRibs} gives
+	$K\in\mathcal{S}_p^\infty$.
+	Moreover,
+	\[
+		x_i\in K+p^rG
+		\quad\Longleftrightarrow\quad
+		i=i_0,
+	\]
+	so $i_0$ is the $(p,K)$-exception with $k=0$.
+	A convex set disjoint from $E$ therefore sees constant $\mathfrak{s}_{p^r}$-value.
+
+	Now restrict to such a convex set $C$, and let the common value be $H$.
+	If $H=\emptyset$, the predicate
+	$x_i\equiv_{p^r,\bullet}k_{\bullet}$ is false throughout $C$.
+	Suppose $H\neq\emptyset$.
+	By \cite[Lemma 2.21(2)]{Okura2026DisOrd}, if the predicate holds, then its witnessing subgroup is precisely
+	$\mathfrak{s}_{p^r}(x_i)=H$.
+	If $G/H$ is dense, the predicate is therefore false throughout $C$.
+	We may thus assume that $G/H$ is discrete.
+	If the value of $\mathfrak{s}_{p^r}(x_j-x_i)$ is less than $H$, then all the $x_i$ have the same image modulo $H+p^rG$, and the predicate is constant.
+	Otherwise that value is $H$, and the relevant images are pairwise distinct.
+	If the $\mathfrak{s}_{p^r}(x_i)$ are constant on all of $I$, this shows directly that at most one index in $I$ can satisfy
+	\[
+		x_i/H\equiv_{p^r}k_H.
+	\]
+	If instead there is an exceptional index $i_0$ outside which all the values equal $H$, then $x_{i_0}\in H+p^rG$.
+	Since $1\leq k<p^r$, the class $k_H$ is nonzero modulo $p^r$ in the discrete ordered group $G/H$.
+	Thus $i_0$ does not satisfy the displayed congruence, and again at most one index in all of $I$ can satisfy it.
+	If such an index exists, the same pairwise-distinctness argument makes
+	$R_H^{\mathfrak{s}_{p^r}}$ infinite, so $H\in\mathcal{S}_p^\infty$; the unique satisfying index is then the $(p,H)$-exception.
+	It does not belong to $C$.
+	Thus the predicate is again constant on $C$.
+\end{proof}
+
+\begin{thm}\label{thm:UpperBoundFiniteSpines}
+	Let $G$ be a nontrivial ordered abelian group with finite spines, and suppose that
+	\[
+		\sum_{p\in\mathbb{P}}
+		\left|\mathcal{S}_p^\infty\right|
+	\]
+	is finite.
+	Then
+	\[
+		\operatorname{dp\text{-}rk}(G)
+		\leq
+		1+
+		\sum_{p\in\mathbb{P}}
+		\left|\mathcal{S}_p^\infty\right|.
+	\]
+\end{thm}
+
+\begin{proof}
+	We work in a sufficiently saturated monster model.
+	Let $I\models\mathrm{DLO}$, let $(\overline{a}_i)_{i\in I}$ be indiscernible, and let $b\in G$.
+	Apply \autoref{lem:CommonOrderCut} and \autoref{lem:ControlOfSData}.
+	Cut $I$ at the common order cut and at the at most $N$ points in $E$.
+	If there are fewer than $N+1$ separators, insert arbitrary additional cuts or singleton points.
+	We thereby obtain a decomposition
+	\[
+		I_0<J_0<I_1<\dots<J_N<I_{N+1},
+	\]
+	where every $I_l$ has no endpoints and every $J_l$ has at most one element.
+
+	Fix $l$ and $i,j\in I_l$.
+	Let $M_i$ be the subgroup generated by the entries of $\overline{a}_i$, and define
+	\[
+		f_{ij}:\langle M_i,b\rangle
+		\longrightarrow
+		\langle M_j,b\rangle
+	\]
+	by
+	\[
+		f_{ij}
+		\left(
+			\overline{m}\cdot\overline{a}_i+mb
+		\right)
+		=
+		\overline{m}\cdot\overline{a}_j+mb.
+	\]
+	The case $m=0$ in the following verifications follows directly from indiscernibility over $\operatorname{acl}^{\mathrm{eq}}(\emptyset)$; in particular, the actual values in the finite auxiliary sorts, and not merely their types, agree.
+	For $m\neq0$, \autoref{lem:CommonOrderCut}(1) shows that the sign of every element is preserved.
+	If two displayed representations of an element of $\langle M_i,b\rangle$ are equal, subtracting them gives an integer-linear expression of sign zero.
+	Its corresponding expression at $j$ also has sign zero, so $f_{ij}$ is well-defined.
+	The same argument for nonzero signs gives injectivity and order preservation.
+	Thus $f_{ij}$ is an ordered group embedding.
+	The same lemma, parts (2) and (3), shows that $f_{ij}$ preserves every $\mathfrak{t}_p$ and every predicate $x=_{\bullet}k_{\bullet}$.
+	By \autoref{lem:ControlOfSData}, it preserves every $\mathfrak{s}_{p^r}$ and every predicate $x\equiv_{p^r,\bullet}k_{\bullet}$.
+	Therefore, \autoref{prop:FiniteSpineElementaryMap} implies that $f_{ij}$ is elementary.
+	Since it fixes $b$ and sends $\overline{a}_i$ to $\overline{a}_j$, we obtain
+	\[
+		\operatorname{tp}(\overline{a}_i/b)
+		=
+		\operatorname{tp}(\overline{a}_j/b).
+	\]
+
+	We have verified the hypothesis of \autoref{fct:DpRankCriterion} with $n=N+1$.
+	Hence $\operatorname{dp\text{-}rk}(G)\leq N+1$, as required.
+\end{proof}
+
 \addcontentsline{toc}{section}{References}
 \begin{sloppypar}
 	\printbibliography

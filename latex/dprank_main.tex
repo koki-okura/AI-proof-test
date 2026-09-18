@@ -32,7 +32,7 @@
 \newtheorem{qst}[dfn]{Question}
 \newtheorem{clm}{Claim}
 
-\renewcommand{\theHdfn}{\thesection.\arabic{dfn}}
+\renewcommand{\theHdfn}{\theHsection.\arabic{dfn}}
 \renewcommand{\theHntt}{\theHdfn}
 \renewcommand{\theHex}{\theHdfn}
 \renewcommand{\theHrmk}{\theHdfn}
@@ -52,9 +52,9 @@
 \def\sectionautorefname~#1\null{Chapter~#1\null}
 \def\subsectionautorefname~#1\null{Section~#1\null}
 
-\title{}
-\author{}
-\date{}
+\title{An AI-assisted note on the dp-rank of ordered abelian groups}
+\author{Koki Okura}
+\date{September 2026}
 
 \begin{document}
 
@@ -62,9 +62,30 @@
 
 \tableofcontents
 
+\section*{Introduction}
+\addcontentsline{toc}{section}{Introduction}
+
+This note presents a proof of the known computation of the dp-rank of ordered abelian groups in the pure language of ordered groups.
+Gurevich and Schmitt showed that every ordered abelian group has NIP \cite{Gurevich1984TheOrd}, and hence has dp-rank at most $\aleph_0$.
+For background on NIP and dp-rank, we refer to Simon's guide \cite{Simon2015GuiNIP}.
+If $\mathcal{S}_p$ is infinite for some prime $p$, then the dp-rank is $\aleph_0$.
+If instead $G$ is nontrivial and has finite spines, then
+\[
+	\operatorname{dp\text{-}rk}(G)
+	=
+	1+\sum_{p\in\mathbb{P}}\left|\mathcal{S}_p^\infty\right|.
+\]
+Here $\mathbb{P}$ is the set of primes, and $\mathcal{S}_p^\infty$ is the set of nonempty $H\in\mathcal{S}_p$ for which the rib $R_H^{\mathfrak{s}_p}$ is infinite.
+None of these results is new: the formula is due to Farré \cite{Farre2017StrOrd}, while related characterizations of ordered abelian groups of finite dp-rank were obtained independently by Dolich and Goodrick \cite{Dolich2018ChaStr} and by Halevi and Hasson \cite{Halevi2019StrDep}.
+
+The purpose of this note is to practice AI-assisted proof writing.
+The author supplied sketches of the proofs; ChatGPT 5.6 Sol and Grok 4.6 expanded them into complete proofs, which the author subsequently reviewed and revised.
+For background on ordered abelian groups, we refer to Cluckers and Halupczok \cite{Cluckers2011QuaEli}.
+The notation follows \cite{Okura2026DisOrd}, which is itself based on their framework.
+
 \section{The infinite spine case}
 
-Throughout this section, $G$ denotes an ordered abelian group.
+Throughout this note, $G$ denotes an ordered abelian group.
 For $n \geq 2$ and $a \notin nG$, recall that $\mathfrak{s}_n(a)$ is the largest convex subgroup $H \Subset G$ such that $a \notin H + nG$.
 If $a \in nG$, we set $\mathfrak{s}_n(a) = \emptyset$, and we regard $\emptyset$ as being smaller than every convex subgroup.
 We set $\mathcal{S}_n = \left\{ \mathfrak{s}_n(a) \mid a \in G \right\}$.
@@ -90,7 +111,7 @@ Consequently, comparisons and equalities between values of the maps $\mathfrak{s
 
 \begin{lem}\label{lem:RepresentativeBetweenSValues}
 	Let $p$ be a prime and let $H<H'$ be nonempty elements of $\mathcal{S}_p$.
-	There exists $a\in H'$ such that
+	There exists $a\in G$ such that
 	\[
 		\mathfrak{s}_p(a)=H
 		\quad\text{and}\quad
@@ -104,12 +125,8 @@ Consequently, comparisons and equalities between values of the maps $\mathfrak{s
 	Since $H'>H$, the maximality of $H$ gives $b\in H'+pG$.
 	We may therefore write $b=a+pc$ with $a\in H'$ and $c\in G$.
 	As $a-b\in pG$, we have $\mathfrak{s}_p(a)=\mathfrak{s}_p(b)=H$.
-
-	Fix $r\geq 1$.
-	If $\mathfrak{s}_{p^r}(a)=\emptyset$, there is nothing to prove.
-	Otherwise, put $K=\mathfrak{s}_{p^r}(a)$.
-	If $K\geq H'$, then $a\in H'\subseteq K$, contrary to $a\notin K+p^rG$.
-	Hence, $K<H'$.
+	If $\mathfrak{s}_{p^r}(a) \geq H'$ for some $r \geq 1$, then $a\in H'\subseteq \mathfrak{s}_{p^r}(a)$, contrary to $a\notin \mathfrak{s}_{p^r}(a)+p^rG$.
+	Therefore $\mathfrak{s}_{p^r}(a) < H'$.
 \end{proof}
 
 \begin{lem}[Finite coding]\label{lem:FiniteCoding}
@@ -179,7 +196,6 @@ Consequently, comparisons and equalities between values of the maps $\mathfrak{s
 		\ \text{or}\
 		(i=j\ \text{and}\ k<l).
 	\]
-	Indeed, every finite part of these requirements merely asks for a finite chain of distinct nonempty elements of the infinite linear order $\mathcal{S}_p$.
 
 	For a function $\eta:\omega\to\omega$, consider the partial type
 	\[
@@ -223,7 +239,7 @@ Consequently, comparisons and equalities between values of the maps $\mathfrak{s
 
 \section{The lower bound in the finite-spine case}
 
-We now assume that $G$ is nontrivial and has finite spines.
+We now assume that $G$ is nontrivial and has finite spines: $\mathcal{S}_p$ is finite for every prime $p$.
 For a prime $p$ and $H\in\mathcal{S}_p\setminus\{\emptyset\}$, recall that
 \[
 	H^{[p]}=\bigcap_{K\Subset G,\,K>H}(K+pG)
@@ -235,7 +251,7 @@ and
 	H^{[p]}/(H+pG)
 \]
 by \cite[Definition 2.10 and Lemma 2.14(1)]{Okura2026DisOrd}.
-We also use $\mathcal{S}_{p^r}=\mathcal{S}_p$ for every $r\geq 1$, as established in \cite[Lemma 2.9(3)]{Okura2026DisOrd}.
+We also use $\mathcal{S}_{p^r}=\mathcal{S}_p$ for every $r\geq 1$, as established in \cite[Lemma 2.2(1)]{Cluckers2011QuaEli}.
 We put
 \[
 	\mathcal{S}_p^\infty
@@ -290,7 +306,7 @@ We put
 		H_0<H_1<\dots<H_{n-1}
 	\]
 	be elements of $\mathcal{S}_p^\infty$.
-	For each $i<n$, there is a sequence $(a_i^k)_{k<\omega}$ as in \autoref{lem:RepresentativesOfInfiniteRib}, and these sequences can be chosen so that $a_i^k\in H_{i+1}$ whenever $i<n-1$.
+	For each $i<n$, there is a sequence $(a_i^k)_{k<\omega}$ as in \autoref{lem:RepresentativesOfInfiniteRib} for $H_i$, and these sequences can be chosen so that $a_i^k\in H_{i+1}$ whenever $i<n-1$.
 	For $\zeta:n\to\omega$, set
 	\[
 		b_\zeta
@@ -300,32 +316,16 @@ We put
 		+\dots
 		+p^{n-1}a_{n-1}^{\zeta(n-1)}.
 	\]
-	Then, for every $i<n$,
-	\begin{enumerate}
-		\item $\mathfrak{s}_{p^{i+1}}(b_\zeta)=H_i$;
-		\item the image of $b_\zeta$ in $R_{H_i}^{\mathfrak{s}_{p^{i+1}}}$ is the same as that of $p^ia_i^{\zeta(i)}$;
-		\item for every $k<\omega$,
-		\[
-			b_\zeta-p^ia_i^k\in H_i+p^{i+1}G
-			\quad\Longleftrightarrow\quad
-			k=\zeta(i).
-		\]
-	\end{enumerate}
+	Then, for every $i<n$ and every $k<\omega$,
+	\[
+		b_\zeta-p^ia_i^k\in H_i+p^{i+1}G
+		\quad\Longleftrightarrow\quad
+		k=\zeta(i).
+	\]
 \end{lem}
 
 \begin{proof}
 	The required sequences are supplied by \autoref{lem:RepresentativesOfInfiniteRib}.
-	For $j<n-1$, the fact that $a_j^k\in H_{j+1}$ implies
-	\[
-		\mathfrak{s}_{p^r}(a_j^k)<H_{j+1}
-	\]
-	for every $r\geq 1$: otherwise, $\mathfrak{s}_{p^r}(a_j^k)\geq H_{j+1}$ would contain $a_j^k$, contrary to the definition of $\mathfrak{s}_{p^r}$.
-	The calculation in the proof of \autoref{lem:FiniteCoding} now gives
-	\[
-		\mathfrak{s}_{p^{i+1}}(b_\zeta)=H_i,
-	\]
-	which proves (1).
-
 	For $j<i$, we have $a_j^{\zeta(j)}\in H_{j+1}\subseteq H_i$, whereas for $j>i$, the term $p^ja_j^{\zeta(j)}$ belongs to $p^{i+1}G$.
 	Hence,
 	\[
@@ -333,34 +333,14 @@ We put
 		\in
 		H_i+p^{i+1}G.
 	\]
-	Also, by \autoref{lem:BasicPropertiesOfS},
-	\[
-		\mathfrak{s}_{p^{i+1}}(p^ia_i^{\zeta(i)})
-		=
-		\mathfrak{s}_p(a_i^{\zeta(i)})
-		=
-		H_i.
-	\]
-	Thus, both elements represent classes in
-	\[
-		R_{H_i}^{\mathfrak{s}_{p^{i+1}}}
-		=
-		H_i^{[p^{i+1}]}/(H_i+p^{i+1}G),
-	\]
-	and the congruence $b_\zeta - p^i a_i^{\zeta(i)} \in H_i + p^{i+1}G$ proves (2).
 
-	If $k\neq\zeta(i)$, then
+	If $k\neq\zeta(i)$, then $\mathfrak{s}_{p^{i+1}}(p^i (a_i^{\zeta(i)}-a_i^k)) = \mathfrak{s}_{p}(a_i^{\zeta(i)}-a_i^k) = H_i$, so
 	\[
-		p^i\left(a_i^{\zeta(i)}-a_i^k\right)
+		p^i a_i^{\zeta(i)} - p^i a_i^k
 		\notin
 		H_i+p^{i+1}G.
 	\]
-	Indeed, by the purity of the convex subgroup $H_i$, membership in the group on the right would imply
-	\[
-		a_i^{\zeta(i)}-a_i^k\in H_i+pG,
-	\]
-	contrary to \autoref{lem:RepresentativesOfInfiniteRib}.
-	Together with the preceding congruence, this proves (3).
+	Together with the preceding congruence, this proves the claim.
 \end{proof}
 
 The following standard consequences of compactness will be used without proof.
@@ -369,11 +349,7 @@ For the second assertion, finite satisfiability follows from the Chinese remaind
 \begin{lem}\label{lem:CofinalDivisibleTranslations}
 	Let $G$ be a sufficiently saturated monster model of the theory of a nontrivial ordered abelian group.
 	\begin{enumerate}
-		\item The type-definable subgroup
-		\[
-			D=\bigcap_{m\geq 2}mG
-		\]
-		is cofinal and coinitial in $G$.
+		\item The subgroup $\bigcap_{m\geq 2}mG$ is cofinal and coinitial in $G$.
 		\item Let $P_0\subseteq\mathbb{P}$ and $(a_p)_{p\in P_0}$ be a sequence from $G$.
 		There exists $a\in G$ such that
 		\[
@@ -391,7 +367,6 @@ For the second assertion, finite satisfiability follows from the Chinese remaind
 		\geq
 		1+\sum_{p\in\mathbb{P}}\left|\mathcal{S}_p^\infty\right|.
 	\]
-	If the sum on the right is infinite, then the dp-rank of $G$ is $\aleph_0$.
 \end{thm}
 
 \begin{proof}
@@ -425,30 +400,12 @@ For the second assertion, finite satisfiability follows from the Chinese remaind
 		x-y\in\mathfrak{s}_{p^{i+1}}(y)+p^{i+1}G.
 	\]
 	This is an $L_{\mathrm{oag}}$-formula by the uniform definability of $\mathfrak{s}_{p^{i+1}}$.
-	We use the parameter sequence
+	\autoref{lem:BasicPropertiesOfS} implies $\mathfrak{s}_{p^{i+1}}(p^ia_{p,i}^k) = \mathfrak{s}_p(a_{p,i}^k) = H_{p,i}$ for every $k<\omega$, and hence
 	\[
-		\left(p^ia_{p,i}^k\right)_{k<\omega}
-	\]
-	in the row indexed by $(p,i)$.
-	By \autoref{lem:BasicPropertiesOfS},
-	\[
-		\mathfrak{s}_{p^{i+1}}(p^ia_{p,i}^k)
-		=
-		H_{p,i}.
+		\models \varphi_{p,i}\left(b_{p,\zeta};p^ia_{p,i}^k\right) \iff k=\zeta(i).
 	\]
 
-	Fix a function $\eta:\mathcal{I}\to\omega$ and consider
-	\[
-		q_\eta(x)
-		=
-		\left\{
-			\varphi_{p,i}
-			\left(x;p^ia_{p,i}^k\right)^{\eta(p,i)=k}
-			\;\middle|\;
-			(p,i)\in\mathcal{I},\ k<\omega
-		\right\}.
-	\]
-	Here, the superscript means that the formula is negated when $\eta(p,i)\neq k$.
+	Fix a function $\eta:\mathcal{I}\to\omega$.
 	For each $p$ with $n_p>0$, let
 	\[
 		\eta_p:n_p\to\omega,
@@ -457,10 +414,14 @@ For the second assertion, finite satisfiability follows from the Chinese remaind
 	\]
 	By \autoref{lem:CofinalDivisibleTranslations}(2), there is $b_\eta\in G$ such that
 	\[
-		b_\eta-b_{p,\eta_p}\in p^rG
+		b_\eta-b_{p,\eta_p}\in p^{i+1}G
 	\]
-	for every $p$ with $n_p>0$ and $r\geq 1$.
-	Part (3) of \autoref{lem:SimultaneousCodingOnePrime} then shows that $b_\eta\models q_\eta$.
+	for every $p$ with $n_p>0$ and $i\geq 0$.
+	Since translation by an element of $p^{i+1}G$ does not change the truth of formula $\varphi_{p,i}$, we have
+	\[
+		\models \varphi_{p,i}\left(b_\eta;p^ia_{p,i}^k\right) \iff k=\eta(p,i)
+	\]
+	for all $(p,i)\in\mathcal{I}$ and $k<\omega$.
 
 	It remains to add the row arising from the order.
 	Since the monster is sufficiently saturated, there exists $c>0$ such that
@@ -468,11 +429,11 @@ For the second assertion, finite satisfiability follows from the Chinese remaind
 		-c<b_\eta<c
 	\]
 	for every $\eta:\mathcal{I}\to\omega$.
-	By \autoref{lem:CofinalDivisibleTranslations}, choose
+	By \autoref{lem:CofinalDivisibleTranslations}(1), choose
 	\[
 		t_0<t_1<\dots
 	\]
-	from $D$ so that $t_{k+1}-t_k>2c$ for every $k<\omega$.
+	from $\bigcap_{m\geq 2}mG$ so that $t_{k+1}-t_k>2c$ for every $k<\omega$.
 	Set
 	\[
 		I_k=(t_k-c,t_k+c).
@@ -487,7 +448,7 @@ For the second assertion, finite satisfiability follows from the Chinese remaind
 		(t_k-c,t_k+c)_{k<\omega}.
 	\]
 
-	Let $\nu:\{\ast\}\mathbin{\dot\cup}\mathcal{I}\to\omega$, and put $\eta=\nu|_{\mathcal{I}}$.
+	Let $\nu:\{\ast\} \cup \mathcal{I}\to\omega$, and put $\eta=\nu|_{\mathcal{I}}$.
 	The element
 	\[
 		a_\nu=b_\eta+t_{\nu(\ast)}
@@ -515,8 +476,6 @@ For the second assertion, finite satisfiability follows from the Chinese remaind
 		1+\sum_{p\in\mathbb{P}}\left|\mathcal{S}_p^\infty\right|,
 	\]
 	as required.
-	If the sum is infinite, the ICT-pattern has depth $\aleph_0$.
-	The NIP upper bound recalled in the proof of \autoref{thm:InfiniteSpine} gives $\operatorname{dp\text{-}rk}(G)\leq\aleph_0$, so equality holds in this case.
 \end{proof}
 
 \section{The upper bound in the finite-spine case}
@@ -532,8 +491,8 @@ is finite.
 We use the following standard criterion.
 
 \begin{fct}[Indiscernible-sequence criterion]\label{fct:DpRankCriterion}
-	Let $T$ be a complete theory and let $n\geq 1$.
-	It is enough to consider sequences indexed by a fixed model of $\mathrm{DLO}$; we take this model $I$ to be Dedekind complete.
+	Let $T$ be a complete theory, let $n\geq 1$.
+	Fix a Dedekind complete $I \models DLO$.
 	Suppose that, whenever $(\overline{a}_i)_{i\in I}$ is an indiscernible sequence and $b$ is a singleton, one can divide $I$ by at most $n$ points so that
 	\[
 		\operatorname{tp}(\overline{a}_i/b)
@@ -545,12 +504,13 @@ We use the following standard criterion.
 \end{fct}
 
 This may be proved in the same way as \cite[Fact 2.10]{Dolich2011DpmBas}.
-
 Henceforth $I$ denotes this Dedekind complete index set.
+For $p \in \mathbb{P}$ and $a \in G$, recall that $\mathfrak{t}_p(a) = \bigcup_{H \in \mathcal{S}_p, a \notin H} H$.
+We set $\mathcal{T}_p = \left\{ \mathfrak{t}_p(a) \mid a \in G \right\}$, but this coincides with $\mathcal{S}_p$ if $G$ has finite spines.
+We will also use the following result originating in the relative quantifier elimination by Cluckers and Halupczok \cite{Cluckers2011QuaEli}.
+See \cite[Definition 2.20]{Okura2026DisOrd} for the notation.
 
-We will also use the following specialization of relative quantifier elimination.
-
-\begin{prop}[{\cite[Proposition 2.26]{Okura2026DisOrd}}]\label{prop:FiniteSpineElementaryMap}
+\begin{prop}\label{prop:FiniteSpineElementaryMap}
 	Let $G$ be an ordered abelian group with finite spines and let $f$ be a partial map from $G$ to $G$ whose domain is a subgroup.
 	Suppose that $f$ is an ordered group embedding and, for every $a$ in its domain, every prime $p$, and every $r\geq 1$, the following hold:
 	\begin{align*}
@@ -568,31 +528,15 @@ We will also use the following specialization of relative quantifier elimination
 \end{prop}
 
 \begin{proof}
+	This is a special case of \cite[Proposition 2.26]{Okura2026DisOrd}.
 	We use the identity map on all the auxiliary sorts in the cited proposition.
-	The reduction of the predicates $x\equiv_{m,\bullet}k_{\bullet}$ to prime-power moduli is given by \cite[Lemma 2.22]{Okura2026DisOrd}.
-	It only remains to explain why its predicates $D_{p^r}^{[p^s]}$, where $s\geq r$, require no additional hypothesis.
-
-	Indeed, in the finite-spine case,
-	\[
-		D_{p^r}^{[p^s]}(a)
-		\quad\Longleftrightarrow\quad
-		a\notin p^rG.
-	\]
-	The forward implication is immediate from the definition.
-	Conversely, put $H=\mathfrak{s}_{p^r}(a)$.
-	If $H$ has a successor $H'$ in $\mathcal{S}_p$, then
-	\[
-		H^{[p^s]}=H'+p^sG,
-	\]
-	while, if $H$ has no successor, then $H^{[p^s]}=G$.
-	In either case, the definition of $\mathfrak{s}_{p^r}(a)$ gives
-	\[
-		a\in H^{[p^s]}+p^rG
-		\quad\text{and}\quad
-		a\notin H+p^rG.
-	\]
-	Thus $H$ witnesses $D_{p^r}^{[p^s]}(a)$.
-	Since preservation of $\mathfrak{s}_{p^r}$ also preserves membership in $p^rG$, the result follows.
+	We explain why predicates $D_{p^r}^{[p^s]}$, where $s\geq r$, require no additional hypothesis.
+	Put $H=\mathfrak{s}_{p^r}(a)$.
+	If $H = \emptyset$ then $D_{p^r}^{[p^s]}(a)$ does not hold.
+	Suppose that $H \neq \emptyset$.
+	If $H$ has a successor $H'$ in $\mathcal{S}_p$ then $H^{[p^s]}=H'+p^sG$, while if $H$ has no successor then $H^{[p^s]}=G$.
+	In either case, it automatically follows that $a \in H^{[p^s]} + p^r G$, which implies $D_{p^r}^{[p^s]}(a)$.
+	This completes the proof.
 \end{proof}
 
 \begin{lem}[{\cite[Lemma 3.4]{Okura2026DisOrd}}]\label{lem:HigherPrimePowerRibs}
@@ -614,94 +558,64 @@ The next lemma isolates the single contribution coming from the order and from t
 	\begin{enumerate}
 		\item the sign of $\overline{m}\cdot\overline{a}_i-mb$;
 		\item $\mathfrak{t}_p(\overline{m}\cdot\overline{a}_i-mb)$;
-		\item the truth value of
-		\[
-			\overline{m}\cdot\overline{a}_i-mb
-			=_{\bullet}k_{\bullet}.
-		\]
+		\item the truth value of $\overline{m}\cdot\overline{a}_i-mb =_{\bullet} k_{\bullet}$.
 	\end{enumerate}
 	Here the assertions hold simultaneously for all integer tuples $\overline{m}$, all nonzero integers $m$, all primes $p$, and all nonzero integers $k$.
 \end{lem}
 
 \begin{proof}
 	Let $\mathcal{H}$ consist of $\{0\}$ and all nonempty elements of the finite sorts $\mathcal{T}_p$.
-	(These coincide with the sorts $\mathcal{S}_p$ in the finite-spine case, immediately from the definitions.)
-	Every member of $\mathcal{H}$ is algebraic as an imaginary over $\emptyset$, so an infinite indiscernible sequence remains indiscernible over $\operatorname{acl}^{\mathrm{eq}}(\emptyset)$.
+	Finiteness of every $\mathcal{T}_p$ implies that an indiscernible sequence remains indiscernible with respect to formulas involving elements of $\mathcal{H}$.
 
 	Fix $H\in\mathcal{H}$, an integer tuple $\overline{m}$, a nonzero integer $m$, and an integer $k$, where either $k=0$ or $G/H$ is discrete.
-	The element
+	Let
 	\[
 		c_i
 		=
 		(\overline{m}\cdot\overline{a}_i)/H-k_H
 		\in
-		G/H
+		G/H.
 	\]
-	is obtained from $\overline{a}_i$ by a map defined over $H$, hence over $\operatorname{acl}^{\mathrm{eq}}(\emptyset)$.
-	Thus $(c_i)_{i\in I}$ may be treated as part of the indiscernible sequence.
+	$(c_i)_{i\in I}$ is also indiscernible.
 	In particular, it is either constant or strictly monotone.
-	Consequently, writing $x_i=c_i-m(b/H)$, exactly one of the following alternatives holds:
+	Consequently, exactly one of the following holds:
 	\begin{enumerate}[label=\textup{(\roman*)}]
-		\item the sign of $x_i$ is constant as $i$ varies in $I$;
-		\item there exists $i_0\in I$ such that the terms $x_i$ for $i<i_0$ are all negative and the terms $x_i$ for $i>i_0$ are all positive, or vice versa.
+		\item the sign of $c_i-m(b/H)$ is constant as $i$ varies in $I$;
+		\item there exists $i_0\in I$ such that the terms $c_i-m(b/H)$ for $i<i_0$ are all negative and those terms for $i>i_0$ are all positive, or vice versa.
 	\end{enumerate}
-	(The realization of the cut as a point of $I$ uses Dedekind completeness; at most one index can satisfy $x_i=0$.)
+	(The realization of the cut as a point of $I$ uses Dedekind completeness.)
+	Now suppose that (ii) holds with cutting point $i_0$, and let $K\in\mathcal{H}$ satisfy $K>H$.
+	Then $k_H / K = 0$ and hence $c_i / K = (\overline{m}\cdot\overline{a}_i)/K$.
+	Thus, either (i) or (ii) holds also for $c_i / K - m(b/K)$.
+	If (ii) holds, then the cutting point is the same $i_0$ because $c_i / K - m(b/K)$ for $i < i_0$ are nonpositive and those for $i > i_0$ are nonnegative, or vice versa.
 
-	Now suppose that (ii) holds at $i_0$, and let $K\in\mathcal{H}$ satisfy $K>H$.
-	Let $\pi\colon G/H\to G/K$ be the canonical projection.
-	The constant $k_H$ maps to zero in $G/K$: if $G/H$ is discrete, every nonzero convex subgroup of $G/H$ contains its least positive element.
-	Hence $\pi(x_i)$ may be identified with $c_i/K-m(b/K)$.
-	The sequence $\bigl(\pi(x_i)\bigr)_{i\in I}$ is constant or strictly monotone.
-	Assume, without loss of generality, that $x_i<0$ for $i<i_0$ and $x_i>0$ for $i>i_0$; the opposite orientation is symmetric.
-	Then $\pi(x_i)\leq 0\leq\pi(x_j)$ whenever $i<i_0<j$.
-	If $\bigl(\pi(x_i)\bigr)_{i\in I}$ is constant, it is therefore the zero sequence, and (i) holds in $G/K$.
-	If it is strictly monotone, then it is strictly increasing, and $\pi(x_i)=0$ is impossible for $i<i_0$: otherwise density of $I$ would furnish $i'$ with $i<i'<i_0$, whence $0=\pi(x_i)<\pi(x_{i'})\leq 0$.
-	Thus $\pi(x_i)<0$ for all $i<i_0$, and likewise $\pi(x_j)>0$ for all $j>i_0$.
-	This is (ii) at the same point $i_0$.
-
-	We next show that distinct points of $I$ cannot arise in alternative (ii).
-	Suppose toward a contradiction that configurations associated with subgroups $H$ and $K$ do so at points $\gamma<\delta$ of $I$.
-	Write $c_i\in G/H$ and $d_i\in G/K$ for the corresponding sequences, with coefficients $m$ and $m'$ of $b$.
-	We may assume $H\leq K$.
-	Replacing $(c_i)$ by $m'c_i$ and $(d_i)$ by $md_i$ leaves the exceptional points unchanged, so we may assume $m=m'$.
-	Replacing both sequences by their negatives if necessary (and changing the common coefficient of $b$ accordingly), we may assume that $(c_i)_{i\in I}$ is nondecreasing.
+	We next show that two distinct points of $I$ cannot arise as cutting points in (ii).
+	Let $c_i = \overline{m}\cdot\overline{a}_i/H-k_H$ and $d_i = \overline{m}'\cdot\overline{a}_i/K-k'_K$ with $H \leq K$.
+	Suppose that distinct $i_0$ and $j_0$ in $I$ arise as cutting points of $c_i-m(b/H)$ and $d_i-m'(b/K)$ in (ii), respectively.
+	We may assume that $i_0 < j_0$.
+	We also assume that $c_i-m(b/H)$ for $i < i_0$ are negative by negating the sequence if necessary.
+	Furthermore, we may assume that $m = m'$ by multiplying both sequences by some nonzero integers if necessary.
 	Choose
 	\[
-		h<\gamma<r<s<\delta<l
+		h<i_0<r<s<j_0<l.
 	\]
-	distinct from the at most two indices at which either sequence may vanish.
+	If (i) holds for $c_i / K - m(b/K)$, then $c_i / K = m(b/K)$ for all $i$.
+	Hence the signs of $d_s - c_{i_0} / K$ and $d_l - c_{i_0} / K$ are different, contradicting the indiscernibility of $(c_i / K, d_i)_{i \in I}$.
+	Therefore we assume that (ii) holds for $c_i / K - m(b/K)$ with cutting point $i_0$, and denote $c_i / K$ by $c_i$ henceforth.
+	If $(d_i)$ is also increasing, then we have $c_r>d_s$ but $c_h<d_l$, contradicting indiscernibility.
+	If instead $(d_i)$ is decreasing, then $c_h<d_h$ but $c_l>d_l$, again leading to a contradiction.
 
-	Since $H\leq K$, it is enough to project the sequence associated with $H$.
-	If $H<K$, the preceding paragraph yields that $\bigl(c_i-m(b/K)\bigr)_{i\in I}$ satisfies (i) or else (ii) at $\gamma$; if $H=K$, this sequence is the original one and already satisfies (ii) at $\gamma$.
-	The sequence $\bigl(d_i-m(b/K)\bigr)_{i\in I}$ lives in $G/K$ and satisfies (ii) at $\delta$.
-
-	Suppose first that the (possibly projected) $H$-sequence still satisfies (ii) at $\gamma$.
-	Then $(c_i)$ and $(d_i)$ are monotone sequences in $G/K$ crossing the same element $m(b/K)$ at the distinct points $\gamma$ and $\delta$.
-	If $(d_i)$ is also nondecreasing, the earlier crossing may be that of $(c_i)$ or that of $(d_i)$.
-	In the former case one has $c_r>d_s$ but $c_h<d_l$; in the latter case, $d_r>c_s$ but $d_h<c_l$.
-	Either pair of inequalities contradicts indiscernibility, since both $(r,s)$ and $(h,l)$ are increasing pairs.
-	If instead $(d_i)$ is decreasing, then $c_i<d_i$ holds for all $i<\gamma$ and fails for all $i>\delta$, again contradicting indiscernibility.
-
-	It remains to treat the case where the projected $H$-sequence satisfies (i).
-	Then $H<K$ and $c_i=m(b/K)$ for every $i$, so
-	\[
-		d_i-m(b/K)=d_i-c_j
-	\]
-	holds in $G/K$ for every $j$.
-	Choosing $j<i$, the sign of the right-hand side is independent of the increasing pair $(j,i)$ by indiscernibility.
-	Hence the $K$-sequence cannot satisfy (ii), a contradiction.
-
-	Thus at most one point of $I$ arises in alternative (ii).
+	Thus at most one cutting point of $I$ arises.
 	Dividing $I$ by this point if it exists, the signs under consideration are constant on each convex component of the remainder.
 	Taking $H=\{0\}$ and $k=0$ gives (1).
-	For (2), the value $\mathfrak{t}_p(x)$ is determined by the truth values of $x\in H$ for $H\in\mathcal{T}_p$, and these are determined by the signs of $x/H$.
+	(2) follows because $\mathfrak{t}_p(x) < H$ if and only if $x \in H$ if and only if $x / H = 0$ for $H\in\mathcal{T}_p$.
 	Finally, by \cite[Lemma 2.21(1)]{Okura2026DisOrd}, a witness to $x=_{\bullet}k_{\bullet}$ is $\mathfrak{t}_2(x)$.
 	Thus (2), together with constancy of the sign of $x/H-k_H$, gives (3).
 \end{proof}
 
 We now control all contributions from the $\mathfrak{s}_{p^r}$-side.
 Let $(\overline{a}_i)_{i\in I}$ and $b$ be as in \autoref{lem:CommonOrderCut}.
-For a prime $p$ and for $H$ equal to $\{0\}$ or a nonempty element of $\mathcal{S}_p$, call $i_0\in I$ a \emph{$(p,H)$-exception} if there are an integer tuple $\overline{m}$, a nonzero integer $m$, an integer $r\geq 1$, and an integer $k$ such that either $k=0$ or $G/H$ is discrete, and such that, writing
+For a prime $p$ and for $H \in \mathcal{S}_p \setminus \{\emptyset\}$, call $i_0\in I$ a \emph{$(p,H)$-exception} if there are an integer tuple $\overline{m}$, a nonzero integer $m$, an integer $r\geq 1$, and an integer $k$ such that either $k=0$ or $G/H$ is discrete, and such that, writing
 \[
 	c_i
 	=
@@ -719,88 +633,47 @@ one has
 \]
 
 \begin{lem}[Uniqueness of the congruence exception]\label{lem:UniqueCongruenceException}
-	Let $p$ be a prime and let $H$ be $\{0\}$ or a nonempty element of $\mathcal{S}_p$.
+	Let $p$ be a prime and let $H \in \mathcal{S}_p \setminus \{\emptyset\}$.
 	\begin{enumerate}
 		\item There is at most one $(p,H)$-exception.
-		\item Suppose $i_0$ is a $(p,H)$-exception, witnessed by $\overline{m}$, $m$, $r$, and $k$ as above, and set
-		\[
-			K
-			=
-			\mathfrak{s}_{p^r}
-			\bigl(
-				\overline{m}\cdot\overline{a}_j
-				-
-				\overline{m}\cdot\overline{a}_i
-			\bigr)
-		\]
-		for $i\neq j$ in $I$ (this value is independent of the pair).
-		Then $K\in\mathcal{S}_p^\infty$ and $i_0$ is a $(p,K)$-exception.
+		\item If $i_0$ is a $(p,H)$-exception, then $i_0$ is also a $(p,K)$-exception for some $K \in \mathcal{S}_p^\infty$.
 	\end{enumerate}
 \end{lem}
 
 \begin{proof}
-	For (1), suppose that $i_0$ and $i_1$ are exceptions, witnessed respectively by
+	For (1), suppose that $i_0 < j_0$ are $(p,H)$-exceptions, witnessed respectively by
 	\[
 		(c_i,m,r)
 		\quad\text{and}\quad
 		(d_i,m',r')
 	\]
 	in the notation above.
-	In $G/H$ one has, for every $n\geq 1$,
-	\[
-		x\equiv_{p^n}0
-		\quad\Longleftrightarrow\quad
-		p^sx\equiv_{p^{n+s}}0
-	\]
-	for all $s\geq 0$, by purity of $H$, and
-	\[
-		x\equiv_{p^n}0
-		\quad\Longleftrightarrow\quad
-		sx\equiv_{p^n}0
-	\]
-	whenever $s$ is coprime to $p$.
-
-	Assume without loss of generality that $r\geq r'$.
-	The first equivalence, applied with exponent $r-r'$, replaces the second congruence by an equivalent congruence modulo $p^r$.
-	The second equivalence lets us multiply by an inverse of the prime-to-$p$ part of each coefficient of $b$, without changing the solution sets.
-	The sequences remain of the same shape, and the exceptional congruences may thus be written
-	\begin{align*}
-		c_i&\equiv_{p^r}p^e(b/H)
-		\quad\Longleftrightarrow\quad
-		i=i_0,\\
-		d_i&\equiv_{p^r}p^f(b/H)
-		\quad\Longleftrightarrow\quad
-		i=i_1,
-	\end{align*}
-	for some integers $e,f\geq 0$.
-
-	Assume first that $i_0<i_1$.
+	In a torsion-free abelian group, one has $x \equiv_{p^s} 0 \quad \Longleftrightarrow \quad p^t x \equiv_{p^{s+t}} 0$ for all $s,t \geq 1$.
+	It allows us to assume that $r = r'$.
+	One also has $x \equiv_{p^s} 0 \quad \Longleftrightarrow \quad u x \equiv_{p^s} 0$ whenever $u$ is coprime to $p$.
+	By writing $m = n p^e$ where $n$ is coprime to $p$ and multiplying the inverse of $n$ in $\mathbb{Z} / p^r \mathbb{Z}$, we also may assume that $m = p^e$, and similarly that $m' = p^f$.
+	We now have
+	\begin{gather*}
+		c_i \equiv_{p^r} p^e (b/H) \quad \Longleftrightarrow \quad i = i_0,\\
+		d_i \equiv_{p^r} p^f (b/H) \quad \Longleftrightarrow \quad i = j_0.
+	\end{gather*}
 	If $e\leq f$, eliminating $b$ gives
 	\[
-		d_{i_1}-p^{f-e}c_{i_0}
+		d_{j_0}-p^{f-e}c_{i_0}
 		\equiv_{p^r}
 		0.
 	\]
-	By indiscernibility over the algebraic imaginary $H$, the same relation holds with $i_1$ replaced by any $j>i_0$.
-	Subtracting yields $d_j\equiv_{p^r}d_{i_1}$, so the second exceptional congruence also holds at $j$, a contradiction.
-	If $e>f$, eliminate $b$ in the other direction and replace the increasing pair $(i_0,i_1)$ by $(h,i_1)$ for some $h<i_1$ with $h\neq i_0$.
-	This gives $c_h\equiv_{p^r}c_{i_0}$, contradicting uniqueness of the first congruence.
-	The case $i_1<i_0$ is symmetric.
+	By indiscernibility, the same relation holds with $j_0$ replaced by any $j>i_0$.
+	Subtracting yields $d_j\equiv_{p^r}d_{j_0}$, so the second exceptional congruence also holds at $j$, a contradiction.
+	The case $e>f$ is symmetric.
 
-	For (2), independence of the pair follows by indiscernibility.
-	Write $x_i=\overline{m}\cdot\overline{a}_i-mb$, so that $K=\mathfrak{s}_{p^r}(x_j-x_i)$.
-	The congruence $c_i\equiv_{p^r}m(b/H)$ holds at exactly one index, so the $c_i$ are not all congruent modulo $p^r$.
-	Thus $K\neq\emptyset$ and $H\leq K$.
-
-	If $K=H$, then $\mathfrak{s}_{p^r}(x_j-x_i)=H$ for $i\neq j$, so the images of these differences in $R_H^{\mathfrak{s}_{p^r}}$ are pairwise distinct and nonzero.
-	Hence $H\in\mathcal{S}_p^\infty$ by \autoref{lem:HigherPrimePowerRibs}, and $i_0$ is already a $(p,K)$-exception.
-
-	Now suppose $H<K$.
-	If $k=0$, then $x_{i_0}\in H+p^rG\subseteq K+p^rG$.
-	If $k\neq 0$, then $G/H$ is discrete, so $k_H$ maps to zero in $G/K$, and the congruence at $i_0$ projects to $x_{i_0}/K\equiv_{p^r}0$.
-	In either subcase, $\mathfrak{s}_{p^r}(x_{i_0})<K=\mathfrak{s}_{p^r}(x_i-x_{i_0})$ for $i\neq i_0$, whence $\mathfrak{s}_{p^r}(x_i)=K$ for $i\neq i_0$ by \autoref{lem:BasicPropertiesOfS}(2).
-	Thus $x_i\in K+p^rG$ if and only if $i=i_0$, so $i_0$ is a $(p,K)$-exception with $k=0$.
-	The images of the $x_i$ for $i\neq i_0$ in $R_K^{\mathfrak{s}_{p^r}}$ are pairwise distinct, hence $K\in\mathcal{S}_p^\infty$ by \autoref{lem:HigherPrimePowerRibs}.
+	For (2), suppose again $(c_i,m,r)$ witnesses that $i_0$ is a $(p,H)$-exception, where $c_i = (\overline{m}\cdot\overline{a}_i)/H-k_H$.
+	By indiscernibility, the value of $\mathfrak{s}_{p^r}(\overline{m}\cdot\overline{a}_j - \overline{m}\cdot\overline{a}_i)$ is constant when distinct $i, j$ range over $I$.
+	Let $K$ be this value.
+	We have $K \geq H$ because if otherwise, $c_i \equiv_{p^r} c_j$ for all distinct $i, j$, which contradicts the definition of $i_0$.
+	It follows that $c_{i_0} / K \equiv_{p^r} m(b/K)$.
+	$\mathfrak{s}_{p^r}(\overline{m}\cdot\overline{a}_i - \overline{m}\cdot\overline{a}_{i_0}) = K$ implies $c_i / K \not\equiv_{p^r} c_{i_0} / K$ for $i \neq i_0$, and thus $c_i / K \not\equiv_{p^r} m(b/K)$, which shows that $i_0$ is also a $(p,K)$-exception.
+	The images of $(\overline{m}\cdot\overline{a}_i - \overline{m}\cdot\overline{a}_{i_0})_{i \neq i_0}$ in $R_K^{\mathfrak{s}_{p^r}}$ are pairwise distinct, hence $K\in\mathcal{S}_p^\infty$ by \autoref{lem:HigherPrimePowerRibs}.
 \end{proof}
 
 \begin{lem}[Control of the $\mathfrak{s}$-data]\label{lem:ControlOfSData}
@@ -825,12 +698,7 @@ one has
 	By \autoref{lem:UniqueCongruenceException}(1) one has $|E|\leq N$.
 	By part (2) of the same lemma, every $(p,H)$-exception already arises as a $(p,K)$-exception for some $K\in\mathcal{S}_p^\infty$, hence belongs to $E$.
 
-	Fix an integer tuple $\overline{m}$, a nonzero integer $m$, a prime $p$, and $r\geq 1$, and set
-	\[
-		x_i=\overline{m}\cdot\overline{a}_i-mb.
-	\]
-	Let $H$ be $\{0\}$ or a nonempty element of $\mathcal{S}_p$, and let $k$ be $0$ or such that $G/H$ is discrete.
-	Put
+	Fix $H \in \mathcal{S}_p \setminus \{\emptyset\}$, an integer tuple $\overline{m}$, a nonzero integer $m$, a prime $p$, and $r\geq 1$, and an integer $k$ such that either $0$ or $G/H$ is discrete. Put
 	\[
 		c_i
 		=
@@ -838,22 +706,27 @@ one has
 		\in
 		G/H.
 	\]
-	By indiscernibility over $H$, either $c_i\equiv_{p^r}c_j$ for all distinct $i,j\in I$, or else $c_i\not\equiv_{p^r}c_j$ for all distinct $i,j\in I$.
-	In the first case, $c_i-m(b/H)\equiv_{p^r}c_j-m(b/H)$ for all $i,j$, so the condition $x_i/H\equiv_{p^r}k_H$ is independent of $i$.
-	In the second case, there is at most one $i_0\in I$ such that $c_{i_0}-m(b/H)\equiv_{p^r}0$.
-	If this $i_0$ exists, then $i_0$ is a $(p,H)$-exception, so $i_0\in E$.
+	We first show that
+	\[
+		c_i \equiv_{p^r} m(b/H) \iff c_j \equiv_{p^r} m(b/H)
+	\]
+	for all $i,j \in C$.
+	By indiscernibility, either $c_i\equiv_{p^r}c_j$ for all distinct $i,j\in I$, or else $c_i\not\equiv_{p^r}c_j$ for all distinct $i,j\in I$.
+	The claim is trivial in the first case.
+	In the second case, there is at most one $i_0\in I$ such that $c_{i_0} \equiv_{p^r} m(b/H)$.
+	If this $i_0$ exists, then $i_0$ is a $(p,H)$-exception, so $i_0\in E$ and the claim follows.
 
-	Let $C\subseteq I$ be convex and disjoint from $E$.
-	Then $x_i/H\equiv_{p^r}k_H$ is independent of $i\in C$.
-	Applying this with $k=0$ as $H$ varies, we obtain that $\mathfrak{s}_{p^r}(x_i)$ is constant on $C$.
-	If the common value is $\emptyset$, the predicate $x_i\equiv_{p^r,\bullet}k_{\bullet}$ fails on $C$.
+	Applying this with $k=0$ as $H$ varies, we obtain that $\mathfrak{s}_{p^r}(\overline{m}\cdot\overline{a}_i-mb)$ is constant on $C$.
+	If the common value is $\emptyset$, the predicate $\overline{m}\cdot\overline{a}_i-mb\equiv_{p^r,\bullet}k_{\bullet}$ fails on $C$.
 	Otherwise, by \cite[Lemma 2.21(2)]{Okura2026DisOrd}, a witness to the predicate is this common value $H$.
-	If $G/H$ is dense, the predicate fails on $C$; if $G/H$ is discrete, constancy of $x_i/H\equiv_{p^r}k_H$ on $C$ is the case already treated.
+	If $G/H$ is dense, the predicate fails on $C$; if $G/H$ is discrete, the equivalence above proves the constancy of the predicate on $C$.
 \end{proof}
 
 \begin{thm}\label{thm:UpperBoundFiniteSpines}
 	Let $G$ be a nontrivial ordered abelian group with finite spines, and suppose that
 	\[
+		N
+		=
 		\sum_{p\in\mathbb{P}}
 		\left|\mathcal{S}_p^\infty\right|
 	\]
@@ -890,12 +763,11 @@ one has
 		=
 		\overline{m}\cdot\overline{a}_j+mb.
 	\]
-	The case $m=0$ in the following verifications follows directly from indiscernibility over $\operatorname{acl}^{\mathrm{eq}}(\emptyset)$; in particular, the actual values in the finite auxiliary sorts, and not merely their types, agree.
+	The case $m=0$ in the following verifications follows directly from indiscernibility.
 	For $m\neq0$, \autoref{lem:CommonOrderCut}(1) shows that the sign of every element is preserved.
-	If two displayed representations of an element of $M_i$ are equal, subtracting them gives an integer-linear expression of sign zero.
-	Its corresponding expression at $j$ also has sign zero, so $f_{ij}$ is well-defined.
-	The same argument for nonzero signs gives injectivity and order preservation.
-	Thus $f_{ij}$ is an ordered group embedding.
+	Note that $\overline{m}\cdot\overline{a}_i+mb = \overline{m}'\cdot\overline{a}_i+m'b$ if and only if $(\overline{m} - \overline{m}')\cdot\overline{a}_i+(m - m')b = 0$.
+	This shows that $f_{ij}$ is well-defined and injective.
+	It also follows that $f_{ij}$ is an ordered group embedding.
 	The same lemma, parts (2) and (3), shows that $f_{ij}$ preserves every $\mathfrak{t}_p$ and every predicate $x=_{\bullet}k_{\bullet}$.
 	By \autoref{lem:ControlOfSData}, it preserves every $\mathfrak{s}_{p^r}$ and every predicate $x\equiv_{p^r,\bullet}k_{\bullet}$.
 	Therefore, \autoref{prop:FiniteSpineElementaryMap} implies that $f_{ij}$ is elementary.

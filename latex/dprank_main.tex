@@ -68,7 +68,22 @@
 This note presents a proof of the known computation of the dp-rank of ordered abelian groups in the pure language of ordered groups.
 Gurevich and Schmitt showed that every ordered abelian group has NIP \cite{Gurevich1984TheOrd}, and hence has dp-rank at most $\aleph_0$.
 For background on NIP and dp-rank, we refer to Simon's guide \cite{Simon2015GuiNIP}.
-If $\mathcal{S}_p$ is infinite for some prime $p$, then the dp-rank is $\aleph_0$.
+
+We recall the relevant definitions.
+Let $T$ be a complete theory in a language $\mathcal{L}$, and work in a monster model.
+An \emph{ICT-pattern} of depth $\kappa$ consists of formulas $(\varphi_{\alpha}(x,\overline{y}_{\alpha}))_{\alpha<\kappa}$, parameters $(\overline{b}_{\alpha,k})_{\alpha<\kappa,\,k<\omega}$, and elements $(a_{\eta})$ indexed by functions $\eta:\kappa\to\omega$, such that
+\[
+	\models
+	\varphi_{\alpha}(a_{\eta},\overline{b}_{\alpha,k})
+	\quad\Longleftrightarrow\quad
+	\eta(\alpha)=k
+\]
+for all $\alpha<\kappa$, all $k<\omega$, and all such $\eta$.
+The \emph{dp-rank} of $T$ is at least $\kappa$ if an ICT-pattern of depth $\kappa$ exists.
+NIP is equivalent to dp-rank at most $|\mathcal{L}|+\aleph_0$; since $L_{\mathrm{oag}}$ is countable, this recovers the bound $\aleph_0$ already cited.
+
+Let $G$ be an ordered abelian group.
+If a spine $\mathcal{S}_p$ is infinite for some prime $p$, then the dp-rank of $G$ is $\aleph_0$.
 If instead $G$ is nontrivial and has finite spines, then
 \[
 	\operatorname{dp\text{-}rk}(G)
@@ -76,12 +91,13 @@ If instead $G$ is nontrivial and has finite spines, then
 	1+\sum_{p\in\mathbb{P}}\left|\mathcal{S}_p^\infty\right|.
 \]
 Here $\mathbb{P}$ is the set of primes, and $\mathcal{S}_p^\infty$ is the set of nonempty $H\in\mathcal{S}_p$ for which the rib $R_H^{\mathfrak{s}_p}$ is infinite.
-None of these results is new: the formula is due to Farré \cite{Farre2017StrOrd}, while related characterizations of ordered abelian groups of finite dp-rank were obtained independently by Dolich and Goodrick \cite{Dolich2018ChaStr} and by Halevi and Hasson \cite{Halevi2019StrDep}.
+None of these results is new: the formula was obtained independently by Farré \cite{Farre2017StrOrd} and by Halevi and Hasson \cite{Halevi2019StrDep}.
+Dolich and Goodrick \cite{Dolich2018ChaStr} independently characterized the strongly dependent ordered abelian groups, that is, those of dp-rank less than $\aleph_0$.
 
 The purpose of this note is to practice AI-assisted proof writing.
 The author supplied sketches of the proofs; ChatGPT 5.6 Sol and Grok 4.6 expanded them into complete proofs, which the author subsequently reviewed and revised.
-For background on ordered abelian groups, we refer to Cluckers and Halupczok \cite{Cluckers2011QuaEli}.
-The notation follows \cite{Okura2026DisOrd}, which is itself based on their framework.
+The author takes full responsibility for the contents.
+We leave the basics of the model theory of ordered abelian groups, and the notation used below, to \cite[Section 2]{Okura2026DisOrd}, which is based on Cluckers and Halupczok \cite{Cluckers2011QuaEli}.
 
 \section{The infinite spine case}
 
@@ -95,29 +111,15 @@ Consequently, comparisons and equalities between values of the maps $\mathfrak{s
 \begin{lem}[{\cite[Lemma 2.8(2) and Remark 2.6]{Okura2026DisOrd}}]\label{lem:BasicPropertiesOfS}
 	Let $p$ be a prime, $r \geq 1$, and $a,b \in G$.
 	\begin{enumerate}
-		\item If $0 \leq j < r$, then
-		\[
-			\mathfrak{s}_{p^r}(p^j a) = \mathfrak{s}_{p^{r-j}}(a).
-		\]
+		\item If $0 \leq j < r$, then $\mathfrak{s}_{p^r}(p^j a) = \mathfrak{s}_{p^{r-j}}(a)$.
 		If $j \geq r$, then $\mathfrak{s}_{p^r}(p^j a) = \emptyset$.
-		\item If $\mathfrak{s}_{p^r}(a) \neq \mathfrak{s}_{p^r}(b)$, then
-		\[
-			\mathfrak{s}_{p^r}(a+b)
-			=
-			\max \left\{ \mathfrak{s}_{p^r}(a),\mathfrak{s}_{p^r}(b) \right\}.
-		\]
+		\item If $\mathfrak{s}_{p^r}(a) \neq \mathfrak{s}_{p^r}(b)$, then $\mathfrak{s}_{p^r}(a+b) = \max \left\{ \mathfrak{s}_{p^r}(a),\mathfrak{s}_{p^r}(b) \right\}$.
 	\end{enumerate}
 \end{lem}
 
 \begin{lem}\label{lem:RepresentativeBetweenSValues}
 	Let $p$ be a prime and let $H<H'$ be nonempty elements of $\mathcal{S}_p$.
-	There exists $a\in G$ such that
-	\[
-		\mathfrak{s}_p(a)=H
-		\quad\text{and}\quad
-		\mathfrak{s}_{p^r}(a)<H'
-	\]
-	for every $r\geq 1$.
+	There exists $a\in G$ such that $\mathfrak{s}_p(a)=H$ and $\mathfrak{s}_{p^r}(a)<H'$ for every $r\geq 1$.
 \end{lem}
 
 \begin{proof}
@@ -130,46 +132,19 @@ Consequently, comparisons and equalities between values of the maps $\mathfrak{s
 \end{proof}
 
 \begin{lem}[Finite coding]\label{lem:FiniteCoding}
-	Let $p$ be a prime and
-	\[
-		K_0<K_1<\dots<K_N
-	\]
-	be nonempty elements of $\mathcal{S}_p$.
-	There exists $x\in G$ such that
-	\[
-		\mathfrak{s}_{p^{i+1}}(x)=K_i
-	\]
-	for every $0\leq i\leq N$.
+	Let $p$ be a prime and $K_0<K_1<\dots<K_N$ be nonempty elements of $\mathcal{S}_p$.
+	There exists $x\in G$ such that $\mathfrak{s}_{p^{i+1}}(x)=K_i$ for every $0\leq i\leq N$.
 \end{lem}
 
 \begin{proof}
-	For each $j<N$, use \autoref{lem:RepresentativeBetweenSValues} to choose $a_j\in G$ such that
-	\[
-		\mathfrak{s}_p(a_j)=K_j
-		\quad\text{and}\quad
-		\mathfrak{s}_{p^r}(a_j)<K_{j+1}
-	\]
-	for every $r\geq 1$.
+	For each $j<N$, use \autoref{lem:RepresentativeBetweenSValues} to choose $a_j\in G$ such that $\mathfrak{s}_p(a_j)=K_j$ and $\mathfrak{s}_{p^r}(a_j)<K_{j+1}$ for every $r\geq 1$.
 	Also choose $a_N\in G$ with $\mathfrak{s}_p(a_N)=K_N$, and set
 	\[
 		x=a_0+pa_1+\dots+p^Na_N.
 	\]
 	Fix $0\leq i\leq N$.
-	By \autoref{lem:BasicPropertiesOfS},
-	\[
-		\mathfrak{s}_{p^{i+1}}(p^ia_i)=\mathfrak{s}_p(a_i)=K_i.
-	\]
-	If $j<i$, then
-	\[
-		\mathfrak{s}_{p^{i+1}}(p^ja_j)
-		=
-		\mathfrak{s}_{p^{i+1-j}}(a_j)
-		<
-		K_{j+1}
-		\leq
-		K_i,
-	\]
-	while, if $j>i$, then $\mathfrak{s}_{p^{i+1}}(p^ja_j)=\emptyset$.
+	By \autoref{lem:BasicPropertiesOfS}, $\mathfrak{s}_{p^{i+1}}(p^ia_i)=\mathfrak{s}_p(a_i)=K_i$.
+	If $j<i$, then $\mathfrak{s}_{p^{i+1}}(p^ja_j)=\mathfrak{s}_{p^{i+1-j}}(a_j)<K_{j+1}\leq K_i$, while, if $j>i$, then $\mathfrak{s}_{p^{i+1}}(p^ja_j)=\emptyset$.
 	Thus, among the summands of $x$, the unique maximal $\mathfrak{s}_{p^{i+1}}$-value is $K_i$.
 	Repeatedly applying \autoref{lem:BasicPropertiesOfS}(2) gives $\mathfrak{s}_{p^{i+1}}(x)=K_i$.
 \end{proof}
@@ -180,15 +155,7 @@ Consequently, comparisons and equalities between values of the maps $\mathfrak{s
 
 \begin{proof}
 	We work in a sufficiently saturated monster model of $\operatorname{Th}(G)$.
-	Since $\mathcal{S}_p$ is an infinite interpretable linear order, compactness allows us to choose elements
-	\[
-		(b_{i,k})_{i,k<\omega}
-	\]
-	such that all the values
-	\[
-		H_{i,k}:=\mathfrak{s}_p(b_{i,k})
-	\]
-	are nonempty and
+	Since $\mathcal{S}_p$ is an infinite interpretable linear order, compactness allows us to choose elements $(b_{i,k})_{i,k<\omega}$ such that all the values $H_{i,k}:=\mathfrak{s}_p(b_{i,k})$ are nonempty and
 	\[
 		H_{i,k}<H_{j,l}
 		\quad\text{whenever}\quad
@@ -208,19 +175,10 @@ Consequently, comparisons and equalities between values of the maps $\mathfrak{s
 		\right\}.
 	\]
 	This type is finitely satisfiable.
-	Indeed, given $N<\omega$, the values
-	\[
-		H_{0,\eta(0)}<H_{1,\eta(1)}<\dots<H_{N,\eta(N)}
-	\]
-	form a finite increasing chain, so \autoref{lem:FiniteCoding} realizes the first $N+1$ conditions of $\Sigma_\eta$.
+	Indeed, given $N<\omega$, the values $H_{0,\eta(0)}<H_{1,\eta(1)}<\dots<H_{N,\eta(N)}$ form a finite increasing chain, so \autoref{lem:FiniteCoding} realizes the first $N+1$ conditions of $\Sigma_\eta$.
 	By saturation, there is $a_\eta\in G$ realizing $\Sigma_\eta$.
 
-	For every $i<\omega$, let
-	\[
-		\varphi_i(x;y)
-		\quad\text{be the formula}\quad
-		\mathfrak{s}_{p^{i+1}}(x)=\mathfrak{s}_p(y).
-	\]
+	For every $i<\omega$, let $\varphi_i(x;y)$ be the formula $\mathfrak{s}_{p^{i+1}}(x)=\mathfrak{s}_p(y)$.
 	As noted above, this is an $L_{\mathrm{oag}}$-formula.
 	For all $\eta:\omega\to\omega$, $i<\omega$, and $k<\omega$, we have
 	\[
@@ -243,9 +201,7 @@ We now assume that $G$ is nontrivial and has finite spines: $\mathcal{S}_p$ is f
 For a prime $p$ and $H\in\mathcal{S}_p\setminus\{\emptyset\}$, recall that
 \[
 	H^{[p]}=\bigcap_{K\Subset G,\,K>H}(K+pG)
-\]
-and
-\[
+	\qquad\text{and}\qquad
 	R_H^{\mathfrak{s}_p}
 	=
 	H^{[p]}/(H+pG)
@@ -265,34 +221,14 @@ We put
 
 \begin{lem}\label{lem:RepresentativesOfInfiniteRib}
 	Let $p$ be a prime and $H\in\mathcal{S}_p^\infty$.
-	There is a sequence $(a^k)_{k<\omega}$ such that
-	\[
-		\mathfrak{s}_p(a^k)
-		=
-		\mathfrak{s}_p(a^k-a^l)
-		=
-		H
-	\]
-	whenever $k\neq l$.
+	There is a sequence $(a^k)_{k<\omega}$ such that $\mathfrak{s}_p(a^k)=\mathfrak{s}_p(a^k-a^l)=H$ whenever $k\neq l$.
 	If $H<K$ for some $K\in\mathcal{S}_p\setminus\{\emptyset\}$, the sequence may moreover be chosen inside $K$.
 \end{lem}
 
 \begin{proof}
-	Choose elements $(u^k)_{k<\omega}$ whose images in
-	\[
-		R_H^{\mathfrak{s}_p}=H^{[p]}/(H+pG)
-	\]
-	are nonzero and pairwise distinct.
+	Choose elements $(u^k)_{k<\omega}$ whose images in $R_H^{\mathfrak{s}_p}=H^{[p]}/(H+pG)$ are nonzero and pairwise distinct.
 	Thus, neither $u^k$ nor $u^k-u^l$ belongs to $H+pG$, while all these elements belong to $H^{[p]}$.
-	By \cite[Lemma 2.14(1)]{Okura2026DisOrd}, this says precisely that
-	\[
-		\mathfrak{s}_p(u^k)
-		=
-		\mathfrak{s}_p(u^k-u^l)
-		=
-		H
-	\]
-	for $k\neq l$.
+	By \cite[Lemma 2.14(1)]{Okura2026DisOrd}, this says precisely that $\mathfrak{s}_p(u^k)=\mathfrak{s}_p(u^k-u^l)=H$ for $k\neq l$.
 
 	Suppose that $H<K$.
 	Since $u^k\in H^{[p]}\subseteq K+pG$, we can write $u^k=a^k+pc_k$ with $a^k\in K$.
@@ -301,20 +237,13 @@ We put
 \end{proof}
 
 \begin{lem}[Simultaneous coding for one prime]\label{lem:SimultaneousCodingOnePrime}
-	Let $p$ be a prime and let
-	\[
-		H_0<H_1<\dots<H_{n-1}
-	\]
-	be elements of $\mathcal{S}_p^\infty$.
+	Let $p$ be a prime and let $H_0<H_1<\dots<H_{n-1}$ be elements of $\mathcal{S}_p^\infty$.
 	For each $i<n$, there is a sequence $(a_i^k)_{k<\omega}$ as in \autoref{lem:RepresentativesOfInfiniteRib} for $H_i$, and these sequences can be chosen so that $a_i^k\in H_{i+1}$ whenever $i<n-1$.
 	For $\zeta:n\to\omega$, set
 	\[
 		b_\zeta
 		=
-		a_0^{\zeta(0)}
-		+pa_1^{\zeta(1)}
-		+\dots
-		+p^{n-1}a_{n-1}^{\zeta(n-1)}.
+		a_0^{\zeta(0)}+pa_1^{\zeta(1)}+\dots+p^{n-1}a_{n-1}^{\zeta(n-1)}.
 	\]
 	Then, for every $i<n$ and every $k<\omega$,
 	\[
@@ -327,19 +256,9 @@ We put
 \begin{proof}
 	The required sequences are supplied by \autoref{lem:RepresentativesOfInfiniteRib}.
 	For $j<i$, we have $a_j^{\zeta(j)}\in H_{j+1}\subseteq H_i$, whereas for $j>i$, the term $p^ja_j^{\zeta(j)}$ belongs to $p^{i+1}G$.
-	Hence,
-	\[
-		b_\zeta-p^ia_i^{\zeta(i)}
-		\in
-		H_i+p^{i+1}G.
-	\]
+	Hence $b_\zeta-p^ia_i^{\zeta(i)}\in H_i+p^{i+1}G$.
 
-	If $k\neq\zeta(i)$, then $\mathfrak{s}_{p^{i+1}}(p^i (a_i^{\zeta(i)}-a_i^k)) = \mathfrak{s}_{p}(a_i^{\zeta(i)}-a_i^k) = H_i$, so
-	\[
-		p^i a_i^{\zeta(i)} - p^i a_i^k
-		\notin
-		H_i+p^{i+1}G.
-	\]
+	If $k\neq\zeta(i)$, then $\mathfrak{s}_{p^{i+1}}(p^i (a_i^{\zeta(i)}-a_i^k)) = \mathfrak{s}_{p}(a_i^{\zeta(i)}-a_i^k) = H_i$, so $p^i a_i^{\zeta(i)} - p^i a_i^k\notin H_i+p^{i+1}G$.
 	Together with the preceding congruence, this proves the claim.
 \end{proof}
 
@@ -351,11 +270,7 @@ For the second assertion, finite satisfiability follows from the Chinese remaind
 	\begin{enumerate}
 		\item The subgroup $\bigcap_{m\geq 2}mG$ is cofinal and coinitial in $G$.
 		\item Let $P_0\subseteq\mathbb{P}$ and $(a_p)_{p\in P_0}$ be a sequence from $G$.
-		There exists $a\in G$ such that
-		\[
-			a-a_p\in p^rG
-		\]
-		for every $p\in P_0$ and $r\geq 1$.
+		There exists $a\in G$ such that $a-a_p\in p^rG$ for every $p\in P_0$ and $r\geq 1$.
 	\end{enumerate}
 \end{lem}
 
@@ -371,104 +286,42 @@ For the second assertion, finite satisfiability follows from the Chinese remaind
 
 \begin{proof}
 	We work in a sufficiently saturated monster model.
-	For each prime $p$, put $n_p=\left|\mathcal{S}_p^\infty\right|$ and, when $n_p>0$, enumerate
-	\[
-		\mathcal{S}_p^\infty
-		=
-		\{H_{p,0}<\dots<H_{p,n_p-1}\}.
-	\]
+	For each prime $p$, put $n_p=\left|\mathcal{S}_p^\infty\right|$ and, when $n_p>0$, enumerate $\mathcal{S}_p^\infty=\{H_{p,0}<\dots<H_{p,n_p-1}\}$.
 	The number $n_p$ is finite because $G$ has finite spines.
-	Let
-	\[
-		\mathcal{I}
-		=
-		\{(p,i)\mid p\in\mathbb{P},\ 0\leq i<n_p\}.
-	\]
-	Thus,
-	\[
-		|\mathcal{I}|
-		=
-		\sum_{p\in\mathbb{P}}\left|\mathcal{S}_p^\infty\right|,
-	\]
-	and $\mathcal{I}$ is finite or countable.
+	Let $\mathcal{I}=\{(p,i)\mid p\in\mathbb{P},\ 0\leq i<n_p\}$.
+	Thus $|\mathcal{I}|=\sum_{p\in\mathbb{P}}\left|\mathcal{S}_p^\infty\right|$, and $\mathcal{I}$ is finite or countable.
 
 	For each $p$ with $n_p>0$, choose sequences $(a_{p,i}^k)_{k<\omega}$ as in \autoref{lem:SimultaneousCodingOnePrime}, and denote the corresponding coding elements by $b_{p,\zeta}$ for $\zeta:n_p\to\omega$.
-	For $(p,i)\in\mathcal{I}$, let
-	\[
-		\varphi_{p,i}(x;y)
-		\quad\text{be the formula}\quad
-		x-y\in\mathfrak{s}_{p^{i+1}}(y)+p^{i+1}G.
-	\]
+	For $(p,i)\in\mathcal{I}$, let $\varphi_{p,i}(x;y)$ be the formula $x-y\in\mathfrak{s}_{p^{i+1}}(y)+p^{i+1}G$.
 	This is an $L_{\mathrm{oag}}$-formula by the uniform definability of $\mathfrak{s}_{p^{i+1}}$.
-	\autoref{lem:BasicPropertiesOfS} implies $\mathfrak{s}_{p^{i+1}}(p^ia_{p,i}^k) = \mathfrak{s}_p(a_{p,i}^k) = H_{p,i}$ for every $k<\omega$, and hence
-	\[
-		\models \varphi_{p,i}\left(b_{p,\zeta};p^ia_{p,i}^k\right) \iff k=\zeta(i).
-	\]
+	\autoref{lem:BasicPropertiesOfS} implies $\mathfrak{s}_{p^{i+1}}(p^ia_{p,i}^k) = \mathfrak{s}_p(a_{p,i}^k) = H_{p,i}$ for every $k<\omega$, and hence $\models \varphi_{p,i}\left(b_{p,\zeta};p^ia_{p,i}^k\right) \iff k=\zeta(i)$.
 
 	Fix a function $\eta:\mathcal{I}\to\omega$.
-	For each $p$ with $n_p>0$, let
-	\[
-		\eta_p:n_p\to\omega,
-		\qquad
-		\eta_p(i)=\eta(p,i).
-	\]
-	By \autoref{lem:CofinalDivisibleTranslations}(2), there is $b_\eta\in G$ such that
-	\[
-		b_\eta-b_{p,\eta_p}\in p^{i+1}G
-	\]
-	for every $p$ with $n_p>0$ and $i\geq 0$.
-	Since translation by an element of $p^{i+1}G$ does not change the truth of formula $\varphi_{p,i}$, we have
-	\[
-		\models \varphi_{p,i}\left(b_\eta;p^ia_{p,i}^k\right) \iff k=\eta(p,i)
-	\]
-	for all $(p,i)\in\mathcal{I}$ and $k<\omega$.
+	For each $p$ with $n_p>0$, let $\eta_p:n_p\to\omega$ be given by $\eta_p(i)=\eta(p,i)$.
+	By \autoref{lem:CofinalDivisibleTranslations}(2), there is $b_\eta\in G$ such that $b_\eta-b_{p,\eta_p}\in p^{i+1}G$ for every $p$ with $n_p>0$ and $i\geq 0$.
+	Since translation by an element of $p^{i+1}G$ does not change the truth of formula $\varphi_{p,i}$, we have $\models \varphi_{p,i}\left(b_\eta;p^ia_{p,i}^k\right) \iff k=\eta(p,i)$ for all $(p,i)\in\mathcal{I}$ and $k<\omega$.
 
 	It remains to add the row arising from the order.
-	Since the monster is sufficiently saturated, there exists $c>0$ such that
-	\[
-		-c<b_\eta<c
-	\]
-	for every $\eta:\mathcal{I}\to\omega$.
-	By \autoref{lem:CofinalDivisibleTranslations}(1), choose
-	\[
-		t_0<t_1<\dots
-	\]
-	from $\bigcap_{m\geq 2}mG$ so that $t_{k+1}-t_k>2c$ for every $k<\omega$.
-	Set
-	\[
-		I_k=(t_k-c,t_k+c).
-	\]
+	Since the monster is sufficiently saturated, there exists $c>0$ such that $-c<b_\eta<c$ for every $\eta:\mathcal{I}\to\omega$.
+	By \autoref{lem:CofinalDivisibleTranslations}(1), choose $t_0<t_1<\dots$ from $\bigcap_{m\geq 2}mG$ so that $t_{k+1}-t_k>2c$ for every $k<\omega$.
+	Set $I_k=(t_k-c,t_k+c)$.
 	These intervals are pairwise disjoint and satisfy $I_0<I_1<\dots$.
-	We take
-	\[
-		\psi(x;y,z):=(y<x<z)
-	\]
-	for the additional row, with parameter sequence
-	\[
-		(t_k-c,t_k+c)_{k<\omega}.
-	\]
+	We take $\psi(x;y,z):=(y<x<z)$ for the additional row, with parameter sequence $(t_k-c,t_k+c)_{k<\omega}$.
 
 	Let $\nu:\{\ast\} \cup \mathcal{I}\to\omega$, and put $\eta=\nu|_{\mathcal{I}}$.
-	The element
-	\[
-		a_\nu=b_\eta+t_{\nu(\ast)}
-	\]
-	belongs to $I_{\nu(\ast)}$.
+	The element $a_\nu=b_\eta+t_{\nu(\ast)}$ belongs to $I_{\nu(\ast)}$.
 	Moreover, $t_{\nu(\ast)}\in p^{i+1}G$ for every $(p,i)\in\mathcal{I}$, so translation by $t_{\nu(\ast)}$ does not change the truth of any formula $\varphi_{p,i}$.
 	It follows that
-	\[
+	\begin{align*}
 		\models\psi(a_\nu;t_k-c,t_k+c)
-		\quad\Longleftrightarrow\quad
-		\nu(\ast)=k
-	\]
-	and
-	\[
+		&\iff
+		\nu(\ast)=k,\\
 		\models
 		\varphi_{p,i}
 		\left(a_\nu;p^ia_{p,i}^k\right)
-		\quad\Longleftrightarrow\quad
+		&\iff
 		\nu(p,i)=k.
-	\]
+	\end{align*}
 	We have therefore constructed an ICT-pattern of depth
 	\[
 		1+|\mathcal{I}|
@@ -491,7 +344,7 @@ is finite.
 We use the following standard criterion.
 
 \begin{fct}[Indiscernible-sequence criterion]\label{fct:DpRankCriterion}
-	Let $T$ be a complete theory, let $n\geq 1$.
+	Let $T$ be a complete theory, and let $n\geq 1$.
 	Fix a Dedekind complete $I \models DLO$.
 	Suppose that, whenever $(\overline{a}_i)_{i\in I}$ is an indiscernible sequence and $b$ is a singleton, one can divide $I$ by at most $n$ points so that
 	\[
@@ -539,7 +392,7 @@ See \cite[Definition 2.20]{Okura2026DisOrd} for the notation.
 	This completes the proof.
 \end{proof}
 
-\begin{lem}[{\cite[Lemma 3.4]{Okura2026DisOrd}}]\label{lem:HigherPrimePowerRibs}
+\begin{lem}[{see the proof of \cite[Lemma 3.4]{Okura2026DisOrd}}]\label{lem:HigherPrimePowerRibs}
 	Let $p$ be a prime, $H\in\mathcal{S}_p\setminus\{\emptyset\}$, and $r\geq 1$.
 	If $R_H^{\mathfrak{s}_p}$ is finite, then $R_H^{\mathfrak{s}_{p^r}}$ is finite.
 	Consequently,
@@ -648,9 +501,9 @@ one has
 		(d_i,m',r')
 	\]
 	in the notation above.
-	In a torsion-free abelian group, one has $x \equiv_{p^s} 0 \quad \Longleftrightarrow \quad p^t x \equiv_{p^{s+t}} 0$ for all $s,t \geq 1$.
-	It allows us to assume that $r = r'$.
-	One also has $x \equiv_{p^s} 0 \quad \Longleftrightarrow \quad u x \equiv_{p^s} 0$ whenever $u$ is coprime to $p$.
+	Convex subgroups are pure, so $G/H$ is torsion-free, and thus in $G/H$ one has $x \equiv_{p^s} 0 \Longleftrightarrow p^t x \equiv_{p^{s+t}} 0$ for all $s,t \geq 1$.
+	This allows us to assume that $r = r'$.
+	One also has $x \equiv_{p^s} 0 \Longleftrightarrow u x \equiv_{p^s} 0$ whenever $u$ is coprime to $p$.
 	By writing $m = n p^e$ where $n$ is coprime to $p$ and multiplying the inverse of $n$ in $\mathbb{Z} / p^r \mathbb{Z}$, we also may assume that $m = p^e$, and similarly that $m' = p^f$.
 	We now have
 	\begin{gather*}
@@ -670,7 +523,7 @@ one has
 	For (2), suppose again $(c_i,m,r)$ witnesses that $i_0$ is a $(p,H)$-exception, where $c_i = (\overline{m}\cdot\overline{a}_i)/H-k_H$.
 	By indiscernibility, the value of $\mathfrak{s}_{p^r}(\overline{m}\cdot\overline{a}_j - \overline{m}\cdot\overline{a}_i)$ is constant when distinct $i, j$ range over $I$.
 	Let $K$ be this value.
-	We have $K \geq H$ because if otherwise, $c_i \equiv_{p^r} c_j$ for all distinct $i, j$, which contradicts the definition of $i_0$.
+	We have $K \geq H$ because otherwise, $c_i \equiv_{p^r} c_j$ for all distinct $i, j$, which contradicts the definition of $i_0$.
 	It follows that $c_{i_0} / K \equiv_{p^r} m(b/K)$.
 	$\mathfrak{s}_{p^r}(\overline{m}\cdot\overline{a}_i - \overline{m}\cdot\overline{a}_{i_0}) = K$ implies $c_i / K \not\equiv_{p^r} c_{i_0} / K$ for $i \neq i_0$, and thus $c_i / K \not\equiv_{p^r} m(b/K)$, which shows that $i_0$ is also a $(p,K)$-exception.
 	The images of $(\overline{m}\cdot\overline{a}_i - \overline{m}\cdot\overline{a}_{i_0})_{i \neq i_0}$ in $R_K^{\mathfrak{s}_{p^r}}$ are pairwise distinct, hence $K\in\mathcal{S}_p^\infty$ by \autoref{lem:HigherPrimePowerRibs}.
@@ -698,7 +551,8 @@ one has
 	By \autoref{lem:UniqueCongruenceException}(1) one has $|E|\leq N$.
 	By part (2) of the same lemma, every $(p,H)$-exception already arises as a $(p,K)$-exception for some $K\in\mathcal{S}_p^\infty$, hence belongs to $E$.
 
-	Fix $H \in \mathcal{S}_p \setminus \{\emptyset\}$, an integer tuple $\overline{m}$, a nonzero integer $m$, a prime $p$, and $r\geq 1$, and an integer $k$ such that either $0$ or $G/H$ is discrete. Put
+	Fix a prime $p$, a nonempty $H \in \mathcal{S}_p$, an integer tuple $\overline{m}$, a nonzero integer $m$, an integer $r\geq 1$, and an integer $k$ such that either $k=0$ or $G/H$ is discrete.
+	Put
 	\[
 		c_i
 		=
